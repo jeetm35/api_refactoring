@@ -1,0 +1,74 @@
+curl https://api.github.com/search/repositories?q=maven+in:readme+language:java+stars:>=100&sort=stars&order=desc
+
+
+
+t
+
+
+
+
+https://github.com/search?utf8=✓&q=maven%20in%3Aname%2Cdescription%20stars%3A%3E%3D100
+
+
+curl https://api.github.com/search/repositories?q=tetris+language:assembly&sort=stars&order=desc
+
+
+https://github.com/search?utf8=✓&q=stars%3A%3E%3D100+path%3Apom.xml+language%3AJava&type=Repositories&ref=advsearch&l=&l=Java
+
+
+
+SELECT unique(repo_name) FROM [bigquery-public-data:github_repos.files] where path contains 'pom.xml' LIMIT 1000;
+
+
+
+Projects with only Java:
+
+SELECT repo_name FROM `bigquery-public-data.github_repos.languages` CROSS JOIN UNNEST (`bigquery-public-data.github_repos.languages`.language)
+where name = "Java" or name = "java"
+
+select repo_name from
+(SELECT repo_name, language FROM `bigquery-public-data.github_repos.languages` where Array_Length(language) = 1)
+where language[OFFSET(0)].name = 'Java'
+
+Projects with Java and pom.xml file
+
+select distinct(t.repo_name) from 
+((SELECT repo_name FROM `bigquery-public-data.github_repos.languages` where Array_Length(language) >= 1 and language[OFFSET(0)].name = 'Java')) as t 
+INNER JOIN `bigquery-public-data.github_repos.sample_files` as q 
+on t.repo_name = q.repo_name and ENDS_WITH(path,'pom.xml') INNER JOIN `bigquery-public-data.github_repos.sample_contents` as w
+USING (id)
+where REGEXP_CONTAINS(w.content,"<artifactId>\\s*log4j\\s*</artifactId>\\s*<version>\\s*1.2.17\\s*</version>")
+and t.repo_name in 
+(select distinct(m.repo_name) from `bigquery-public-data.github_repos.sample_files`as m where REGEXP_CONTAINS(m.path,".*/test/.*"))
+
+
+
+
+
+(select distinct(m.repo_name) from `bigquery-public-data.github_repos.sample_files`as m where REGEXP_CONTAINS(m.path,".*/src/test/.*") )
+
+
+
+-- change reges fro dependency one problem when they use variable
+-- pom file must be in the root or else ignore
+-- test file not predictable so we have used ./test/
+-- The main language must be java
+-- Replace sample with main values
+-- not condition for stars (CAN GET BY CRAWLING GITHUB SITE)
+select distinct(t.repo_name) from 
+((SELECT repo_name FROM `bigquery-public-data.github_repos.languages` 
+CROSS JOIN UNNEST (`bigquery-public-data.github_repos.languages`.language)
+where name = "Java" or name = "java")) as t 
+INNER JOIN `bigquery-public-data.github_repos.sample_files` as q 
+on t.repo_name = q.repo_name and path = 'pom.xml' 
+INNER JOIN `bigquery-public-data.github_repos.sample_contents` as w
+USING (id)
+where REGEXP_CONTAINS(w.content,"<artifactId>\\s*log4j\\s*</artifactId>\\s*<version>\\s*1.2.17\\s*</version>")
+and t.repo_name in 
+(select distinct(m.repo_name) 
+from `bigquery-public-data.github_repos.sample_files`as m 
+where REGEXP_CONTAINS(m.path,".*/test/.*"))
+and t.repo_name in 
+(SELECT  repo_name FROM `bigquery-public-data.github_repos.sample_commits` 
+group by repo_name 
+having count(commit) > 10)
