@@ -1,26 +1,3 @@
-curl https://api.github.com/search/repositories?q=maven+in:readme+language:java+stars:>=100&sort=stars&order=desc
-
-
-
-t
-
-
-
-
-https://github.com/search?utf8=✓&q=maven%20in%3Aname%2Cdescription%20stars%3A%3E%3D100
-
-
-curl https://api.github.com/search/repositories?q=tetris+language:assembly&sort=stars&order=desc
-
-
-https://github.com/search?utf8=✓&q=stars%3A%3E%3D100+path%3Apom.xml+language%3AJava&type=Repositories&ref=advsearch&l=&l=Java
-
-
-
-SELECT unique(repo_name) FROM [bigquery-public-data:github_repos.files] where path contains 'pom.xml' LIMIT 1000;
-
-
-
 Projects with only Java:
 
 SELECT repo_name FROM `bigquery-public-data.github_repos.languages` CROSS JOIN UNNEST (`bigquery-public-data.github_repos.languages`.language)
