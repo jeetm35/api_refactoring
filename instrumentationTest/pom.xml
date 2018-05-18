@@ -1,0 +1,45 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>testing</groupId>
+  <artifactId>instrumentationTest</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>instrumentationTest</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.eclipse.jdt/org.eclipse.jdt.core -->
+<dependency>
+    <groupId>org.eclipse.jdt</groupId>
+    <artifactId>org.eclipse.jdt.core</artifactId>
+    <version>3.7.1</version>
+</dependency>
+    
+	  <dependency>
+      <groupId>com.github.javaparser</groupId>
+      <artifactId>javaparser-core</artifactId>
+      <version>2.2.1</version>
+  </dependency>
+  <!-- https://mvnrepository.com/artifact/org.eclipse.jdt/ui -->
+<dependency>
+    <groupId>org.eclipse.jdt</groupId>
+    <artifactId>ui</artifactId>
+    <version>3.2.1-r321_v20060907</version>
+</dependency>
+  
+  
+  </dependencies>
+</project>
