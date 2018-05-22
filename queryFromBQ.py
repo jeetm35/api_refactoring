@@ -6,22 +6,10 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="C:/Sneha/Studies/UCLA/Classes/Q3Sp
 
 def query_github():
 	client = bigquery.Client()
-
-	query_repo = client.query("""
-		select distinct(t.repo_name) from
-		((SELECT repo_name FROM `bigquery-public-data.github_repos.languages`
-		CROSS JOIN UNNEST (`bigquery-public-data.github_repos.languages`.language)
-		where name = "Java" or name = "java")) as t
-		INNER JOIN `bigquery-public-data.github_repos.files` as q
-		on t.repo_name = q.repo_name and path = 'pom.xml'
-		where t.repo_name in
-		(select distinct(m.repo_name)
-		from `bigquery-public-data.github_repos.files`as m
-		where REGEXP_CONTAINS(m.path,".*/test/.*")) and t.repo_name in (
-		SELECT repo_name FROM `bigquery-public-data.github_repos.sample_repos`
-		where watch_count>=100 ORDER BY watch_count DESC
-		)""")
-
+	f = open("query.txt", "r")
+	query=f.read()
+	print(query)
+	query_repo = client.query(query)
 	res = query_repo.result()
 	
 	f = open('C:/Sneha/Studies/UCLA/Classes/Q3Spring2018/CS230/Project/api-refactoring/api_refactoring/repos.txt','w')
