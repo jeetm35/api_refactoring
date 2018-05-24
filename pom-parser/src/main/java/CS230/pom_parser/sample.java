@@ -3,6 +3,7 @@ package CS230.pom_parser;
 
 
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -12,20 +13,24 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 
+import com.github.javaparser.JavaParser;
+import com.github.javaparser.version.Java10PostProcessor;
+import com.google.common.base.Converter;
+
 import junit.framework.Assert;
 
 
 public class sample {
 
-	private int add(App c){
+	private int add(String c,File s,BufferedReader br,Converter<Integer, String> p){
 		int a=0,b=0;
 		return a+b;
 	}
 	protected String hello(){
 		return "Hello World :) ";
 	}
-	private static void haha(){
-		
+	private static boolean haha(){
+		return true;
 	}
 	
 	static public int ya(){
@@ -47,7 +52,7 @@ public class sample {
 	      InputStream inputStream= new FileInputStream(file);
 	      Reader reader = new InputStreamReader(inputStream,"UTF-8");
 	      reader.read();
-	      System.out.println( 2 < 3);
+	      System.out.println( haha());
 	}
 	
 }
