@@ -1,29 +1,38 @@
 package CS230.pom_parser;
 import java.util.*;
 
+import com.github.javaparser.JavaParser;
+import com.github.javaparser.ParserConfiguration;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.expr.MethodCallExpr;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.javaparser.resolution.declarations.ResolvedMethodDeclaration;
 import com.github.javaparser.resolution.types.ResolvedType;
+import com.github.javaparser.symbolsolver.JavaSymbolSolver;
 import com.github.javaparser.symbolsolver.javaparsermodel.JavaParserFacade;
 import com.github.javaparser.symbolsolver.model.resolution.SymbolReference;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.CombinedTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.JarTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
 
+
 import java.io.*;
  
 
-public class JavaParser {
+public class myJavaParser {
 
 	 public static void main(String[] args) throws Exception {
 	        // creates an input stream for the file to be parsed
-	        FileInputStream in = new FileInputStream("/Users/jeetmehta/Dropbox/CS230/Project/pom-parser/src/main/java/CS230/pom_parser/sample.java");
+		 FileInputStream in = new FileInputStream("C:\\Users\\kprat\\git\\pom-parser\\src\\main\\java\\CS230\\pom_parser\\sample.java");
 
 	        // parse the file
+		 	JavaParser jp=new com.github.javaparser.JavaParser();
 	        CompilationUnit cu = com.github.javaparser.JavaParser.parse(in);
+	        ParserConfiguration ps=new ParserConfiguration();
+		 	CombinedTypeSolver com = new CombinedTypeSolver(new ReflectionTypeSolver(true));
+		 	ps.setSymbolResolver(new JavaSymbolSolver(com));
+	        
 	        cu.accept(new MethodVisitor(), null);
 	   
 	        // prints the resulting compilation unit to default system output
@@ -65,10 +74,11 @@ public class JavaParser {
 		    		
 		    		
 			        ResolvedMethodDeclaration m = n.resolve();
-			        m.
+			        
+			        
 			       
 			        CombinedTypeSolver com = new CombinedTypeSolver(new ReflectionTypeSolver(true));
-			        com.add(new JarTypeSolver(new File("/Users/jeetmehta/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar")));
+			        com.add(new JarTypeSolver(new File("C:/Users/kprat/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar")));
 			        JavaParserFacade a= JavaParserFacade.get(com);
 //			        SymbolReference<ResolvedMethodDeclaration> p = a.solve(m);
 //			        System.out.println(p);
