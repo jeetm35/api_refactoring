@@ -20,7 +20,7 @@ public class JavaParser {
 
 	 public static void main(String[] args) throws Exception {
 	        // creates an input stream for the file to be parsed
-	        FileInputStream in = new FileInputStream("/Users/jeetmehta/Documents/workspace/pom-parser/src/main/java/CS230/pom_parser/sample.java");
+	        FileInputStream in = new FileInputStream("/Users/jeetmehta/Dropbox/CS230/Project/pom-parser/src/main/java/CS230/pom_parser/sample.java");
 
 	        // parse the file
 	        CompilationUnit cu = com.github.javaparser.JavaParser.parse(in);
@@ -31,24 +31,54 @@ public class JavaParser {
 	 
 	 private static class MethodVisitor extends VoidVisitorAdapter<Void> {
 		    @Override
-		    public void visit(MethodCallExpr n, Void arg) {
+//		    public void visit(MethodCallExpr n, Void arg) {
+//		        /* here you can access the attributes of the method.
+//		         this method will be called for all methods in this 
+//		         CompilationUnit, including inner class methods */
+//		    	try{
+//		    		System.out.println(n.getName());
+//			        System.out.println(n);
+//			        CombinedTypeSolver com = new CombinedTypeSolver(new ReflectionTypeSolver(true));
+//			        com.add(new JarTypeSolver(new File("/Users/jeetmehta/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar")));
+//			        JavaParserFacade a= JavaParserFacade.get(com);
+//			        SymbolReference<ResolvedMethodDeclaration> p = a.solve(n);
+//			        System.out.println(p);
+//			        super.visit(n, arg);
+//		    	}
+//		        catch(Exception e){
+//		        	e.printStackTrace();
+//		        }
+//		    }
+		    
+		    public void visit(MethodDeclaration n, Void arg) {
 		        /* here you can access the attributes of the method.
 		         this method will be called for all methods in this 
 		         CompilationUnit, including inner class methods */
 		    	try{
 		    		System.out.println(n.getName());
-			        System.out.println(n);
+		    		n.getModifiers();
+		    		n.getParameters();
+		    		n.getReceiverParameter();
+		    		n.getSignature();
+		    		n.getTypeParameters();
+		    		n.getParsed();
+		    		
+		    		
+			        ResolvedMethodDeclaration m = n.resolve();
+			        m.
+			       
 			        CombinedTypeSolver com = new CombinedTypeSolver(new ReflectionTypeSolver(true));
 			        com.add(new JarTypeSolver(new File("/Users/jeetmehta/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar")));
 			        JavaParserFacade a= JavaParserFacade.get(com);
-			        SymbolReference<ResolvedMethodDeclaration> p = a.solve(n);
-			        System.out.println(p);
+//			        SymbolReference<ResolvedMethodDeclaration> p = a.solve(m);
+//			        System.out.println(p);
 			        super.visit(n, arg);
 		    	}
 		        catch(Exception e){
 		        	e.printStackTrace();
 		        }
 		    }
+		    
 		}
 }
 
