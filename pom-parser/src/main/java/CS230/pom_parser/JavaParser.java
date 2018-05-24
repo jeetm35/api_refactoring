@@ -1,14 +1,17 @@
 package CS230.pom_parser;
 import java.util.*;
 
+import com.github.javaparser.ParserConfiguration;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.expr.MethodCallExpr;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.javaparser.resolution.declarations.ResolvedMethodDeclaration;
 import com.github.javaparser.resolution.types.ResolvedType;
+import com.github.javaparser.symbolsolver.JavaSymbolSolver;
 import com.github.javaparser.symbolsolver.javaparsermodel.JavaParserFacade;
 import com.github.javaparser.symbolsolver.model.resolution.SymbolReference;
+import com.github.javaparser.symbolsolver.resolution.SymbolSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.CombinedTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.JarTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
@@ -55,6 +58,10 @@ public class JavaParser {
 		         this method will be called for all methods in this 
 		         CompilationUnit, including inner class methods */
 		    	try{
+		    		CombinedTypeSolver com = new CombinedTypeSolver(new ReflectionTypeSolver(true));
+			        com.add(new JarTypeSolver(new File("/Users/jeetmehta/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar")));
+			        JavaParserFacade a= JavaParserFacade.get(com);
+			        
 		    		System.out.println(n.getName());
 		    		n.getModifiers();
 		    		n.getParameters();
@@ -64,12 +71,12 @@ public class JavaParser {
 		    		n.getParsed();
 		    		
 		    		
-			        ResolvedMethodDeclaration m = n.resolve();
-			        m.
-			       
-			        CombinedTypeSolver com = new CombinedTypeSolver(new ReflectionTypeSolver(true));
-			        com.add(new JarTypeSolver(new File("/Users/jeetmehta/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar")));
-			        JavaParserFacade a= JavaParserFacade.get(com);
+			        
+			        ParserConfiguration p = new ParserConfiguration();
+			        p.setSymbolResolver(new JavaSymbolSolver(com));
+			        p.getSymbolResolver().get().;
+			        
+			        
 //			        SymbolReference<ResolvedMethodDeclaration> p = a.solve(m);
 //			        System.out.println(p);
 			        super.visit(n, arg);
