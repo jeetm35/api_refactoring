@@ -23,6 +23,7 @@ public class myJavaParser {
 	 public static void main(String[] args) throws Exception {
 	        // creates an input stream for the file to be parsed
 		 FileInputStream in = new FileInputStream("C:\\Users\\kprat\\git\\pom-parser\\src\\main\\java\\CS230\\pom_parser\\sample.java");
+		 //FileInputStream in = new FileInputStream("main\\java\\CS230\\pom_parser\\sample.java");
 
 	        // parse the file
 		 	ParserConfiguration ps=new ParserConfiguration();
@@ -45,10 +46,11 @@ public class myJavaParser {
 		         this method will be called for all methods in this 
 		         CompilationUnit, including inner class methods */
 		    	try{
-		    		System.out.println(n.getName());
-			        System.out.println(n);
+		    		//System.out.println(n.getName());
+			        //System.out.println(n);
 			        CombinedTypeSolver com = new CombinedTypeSolver(new ReflectionTypeSolver(true));
 			        com.add(new JarTypeSolver(new File("C:/Users/kprat/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar")));
+			        com.add(new JarTypeSolver(new File("C:\\Users\\kprat\\.m2\\repository\\com\\google\\guava\\guava\\23.4-jre\\guava-23.4-jre.jar")));
 			        JavaParserFacade a= JavaParserFacade.get(com);
 			       
 			        SymbolReference<ResolvedMethodDeclaration> p = a.solve(n);
@@ -65,7 +67,7 @@ public class myJavaParser {
 			        
 			        p.getCorrespondingDeclaration().getQualifiedName();
 			        //p.getCorrespondingDeclaration().getParam(0).describeType();
-			        System.out.println(p);
+			        //System.out.println(p);
 			        super.visit(n, arg);
 		    	}
 		        catch(Exception e){
@@ -78,7 +80,7 @@ public class myJavaParser {
 //		         this method will be called for all methods in this 
 //		         CompilationUnit, including inner class methods */
 //		    	try{
-//		    		System.out.println(n.getName());
+//		    		System.out.println("-------------------");
 //		    		CombinedTypeSolver com = new CombinedTypeSolver(new ReflectionTypeSolver(true));
 //			        com.add(new JarTypeSolver(new File("C:/Users/kprat/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar")));
 //			        com.add(new JarTypeSolver(new File("C:\\Users\\kprat\\.m2\\repository\\com\\google\\guava\\guava\\23.4-jre\\guava-23.4-jre.jar")));

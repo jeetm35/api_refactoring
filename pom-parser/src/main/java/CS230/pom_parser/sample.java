@@ -38,7 +38,7 @@ public class sample {
 		
 	}
 	public void  foo(){
-		//int c= add(10,2);
+		int c= add("ha",new File(""),new BufferedReader(null),null);
 		//String f=hello();
 		//App a=new App();
 		//App.just();
