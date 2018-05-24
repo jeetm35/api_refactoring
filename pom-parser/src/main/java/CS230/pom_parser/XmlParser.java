@@ -122,7 +122,8 @@ public class XmlParser implements Serializable {
 		Model model = null;
 		Dependency dependency = null;
 		for(File child: directory.listFiles()){
-//			System.out.println(child.getName());
+			System.out.println("----------------------------------------------");
+			System.out.println(child.getName());
 			if(child.isDirectory()){
 				File pom = new File(child, "pom.xml"); 
 				if(pom.exists()){
@@ -155,7 +156,7 @@ public class XmlParser implements Serializable {
 						        String artifact = dependency.getArtifactId() != null ? dependency.getArtifactId() : "";
 						        q = q == null ?  "null" : q;
 						        add(group+"/"+artifact,q); 
-//						        System.out.println(dependency.getGroupId()+"/"+dependency.getArtifactId());
+						        System.out.println(dependency.getGroupId()+"/"+dependency.getArtifactId());
 					    	}
 					    	catch(Exception e){
 					    		e.printStackTrace();
