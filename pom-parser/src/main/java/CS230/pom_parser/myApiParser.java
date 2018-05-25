@@ -26,20 +26,48 @@ import com.github.javaparser.symbolsolver.resolution.typesolvers.CombinedTypeSol
 import com.github.javaparser.symbolsolver.resolution.typesolvers.JarTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
 
-import CS230.pom_parser.myJavaParser.MethodVisitor;
+
 
 public class myApiParser {
 
-	public static void parseApi(File dir){
+	public static void parseApi(File dir, String jarpath[]){
 		
 		HashSet<ApiStorage> functions = new HashSet<ApiStorage>();
 		HashSet<String> fullQualifiedHash = new HashSet<String>();
 		String s[] = new String[1];
 		s[0] = "java";
+		ParserConfiguration ps=new ParserConfiguration();
+		
+	 	JavaParser jp=new com.github.javaparser.JavaParser(ps);
+	 	JavaParser.setStaticConfiguration(ps);
+	 	CombinedTypeSolver com = new CombinedTypeSolver(new ReflectionTypeSolver(true));
+	 	for(String su: jarpath){
+			try{
+				com.add(new JarTypeSolver(new File(su)));
+//				com.add(new JarTypeSolver(new File("/Users/jeetmehta/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar")));
+//		        com.add(new JarTypeSolver(new File("C:\\Users\\kprat\\.m2\\repository\\com\\google\\guava\\guava\\23.4-jre\\guava-23.4-jre.jar")));
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+			
+		}
+	 	ps.setSymbolResolver(new JavaSymbolSolver(com));
+	 	
+	 	
 		Collection<File> files = FileUtils.listFiles(dir, s, true);     
 		for(File file : files){
 		    System.out.println(file.getName());  
-		    parseJavaFile(file, functions,fullQualifiedHash);
+//		    parseJavaFile(file, functions,fullQualifiedHash, jp, com);
+		    try{
+					FileInputStream in = new FileInputStream(file);
+					CompilationUnit cu = jp.parse(in);
+					cu.accept(new MethodVisitor(functions,fullQualifiedHash,com), null);
+		    }
+		    catch(Exception e){
+		    	e.printStackTrace();
+		    }
+		    
 		} 
 		
 		try{
@@ -59,23 +87,15 @@ public class myApiParser {
 		
 	}
 	
-	public static void parseJavaFile(File file, HashSet<ApiStorage> functions, HashSet<String> fullQualifiedHash){
+	public static void parseJavaFile(File file, HashSet<ApiStorage> functions, HashSet<String> fullQualifiedHash, JavaParser jp,CombinedTypeSolver com ){
 		
-		 FileInputStream in = new FileInputStream(file);
-		 	ParserConfiguration ps=new ParserConfiguration();
-		 	CombinedTypeSolver com = new CombinedTypeSolver(new ReflectionTypeSolver(true));
-		 	ps.setSymbolResolver(new JavaSymbolSolver(com));
-		 	JavaParser jp=new com.github.javaparser.JavaParser(ps);
-		 	JavaParser.setStaticConfiguration(ps);
-	        CompilationUnit cu = jp.parse(in);
-	        
-	        
-	        cu.accept(new MethodVisitor(), null);
+		 
 	}
 	public static void main(String[] args){
 	
 		File f = new File("/Users/jeetmehta/Dropbox/CS230/Project/pom-parser/src");
-		parseApi(f);
+		String jarpath[]= null;
+		parseApi(f,jarpath);
 	}
 	
 }
@@ -87,24 +107,13 @@ class MethodVisitor extends VoidVisitorAdapter<Void> {
     
     HashSet<ApiStorage> functions;
 	HashSet<String> fullQualifiedHash;
-	String jarpath[];
 	CombinedTypeSolver com;
 	
-	public MethodVisitor(HashSet<ApiStorage> functions,HashSet<String> fullQualifiedHash  ) {
+	public MethodVisitor(HashSet<ApiStorage> functions,HashSet<String> fullQualifiedHash,CombinedTypeSolver com  ) {
 		this.functions = functions;
 		this.fullQualifiedHash = fullQualifiedHash;
-		com = new CombinedTypeSolver(new ReflectionTypeSolver(true));
-		for(String s: jarpath){
-			try{
-				com.add(new JarTypeSolver(new File(s)));
-//				com.add(new JarTypeSolver(new File("/Users/jeetmehta/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar")));
-//		        com.add(new JarTypeSolver(new File("C:\\Users\\kprat\\.m2\\repository\\com\\google\\guava\\guava\\23.4-jre\\guava-23.4-jre.jar")));
-			}
-			catch(Exception e){
-				e.printStackTrace();
-			}
-			
-		}
+		this.com = com;
+		
 	}
 	
 	@Override
