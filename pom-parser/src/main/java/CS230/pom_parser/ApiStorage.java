@@ -16,7 +16,8 @@ public class ApiStorage {
 		this.returnType = returntype;
 	}
 	
-	public boolean equals(ApiStorage b) {
+	public boolean equals(Object a) {
+		ApiStorage b = (ApiStorage) (a);
         boolean fqn = this.fullyQualifiedName != null && b.fullyQualifiedName != null ? this.fullyQualifiedName.equals(b.fullyQualifiedName) : false;
         boolean am = this.accessModifier != null && b.accessModifier != null ? this.accessModifier.equals(b.accessModifier) : false;
         boolean param = false;
@@ -43,5 +44,5 @@ public class ApiStorage {
 		return ((((((31 + h1)*31)+h2)*31)+h3)*31);
 	}
 	
-	 
+	
 }
