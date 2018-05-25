@@ -16,6 +16,11 @@ public class ApiStorage {
 		//this.returnType = returntype;
 	}
 	
+	public ApiStorage(String fullyQualifiedName, ArrayList<String> paramters){
+		this.fullyQualifiedName = fullyQualifiedName;
+		this.paramters = paramters;
+	}
+	
 	public boolean equals(Object a) {
 		ApiStorage b = (ApiStorage) (a);
         boolean fqn = this.fullyQualifiedName != null && b.fullyQualifiedName != null ? this.fullyQualifiedName.equals(b.fullyQualifiedName) : false;
