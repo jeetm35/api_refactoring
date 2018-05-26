@@ -30,7 +30,7 @@ import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeS
 
 public class myApiParser {
 
-	public static void parseApi(File dir, String jarpath[]){
+	public static void parseApi(File dir, String jarnames[], String apiName){
 		
 		HashSet<ApiStorage> functions = new HashSet<ApiStorage>();
 		HashSet<String> fullQualifiedHash = new HashSet<String>();
@@ -41,9 +41,9 @@ public class myApiParser {
 	 	JavaParser jp=new com.github.javaparser.JavaParser(ps);
 	 	JavaParser.setStaticConfiguration(ps);
 	 	CombinedTypeSolver com = new CombinedTypeSolver(new ReflectionTypeSolver(true));
-	 	for(String su: jarpath){
+	 	for(String su: jarnames){
 			try{
-				com.add(new JarTypeSolver(new File(su)));
+				com.add(new JarTypeSolver(new File("./jars/"+su)));
 //				com.add(new JarTypeSolver(new File("/Users/jeetmehta/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar")));
 //		        com.add(new JarTypeSolver(new File("C:\\Users\\kprat\\.m2\\repository\\com\\google\\guava\\guava\\23.4-jre\\guava-23.4-jre.jar")));
 			}
@@ -72,11 +72,11 @@ public class myApiParser {
 		
 		try{
 //			set the right path
-			String path = "/Users/jeetmehta/Dropbox/CS230/Project/results";
-			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(new File(path,"functionsHash.txt")));
+			String path = "./results";
+			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(new File(path,apiName+"_functionsHash.txt")));
 			out.writeObject(functions);
 			out.close();
-			out = new ObjectOutputStream(new FileOutputStream(new File(path,"fullQualifiedHash.txt")));
+			out = new ObjectOutputStream(new FileOutputStream(new File(path,apiName+"_fullQualifiedHash.txt")));
 			out.writeObject(fullQualifiedHash);
 //			ObjectInputStream in = new ObjectInputStream(new FileInputStream(new File(path,"serliaze.txt")));
 //			XmlParser demo = (XmlParser) in.readObject();	
@@ -93,9 +93,15 @@ public class myApiParser {
 	}
 	public static void main(String[] args){
 	
-		File f = new File("/Users/jeetmehta/Dropbox/CS230/Project/pom-parser/src");
-		String jarpath[]= null;
-		parseApi(f,jarpath);
+		System.out.println("sff");
+		File f = new File("/Users/jeetmehta/Downloads/junit3.8.1");
+//		for(File fi : f.listFiles()){
+//			System.out.println(fi.getName());
+//		}
+		String jarnames[]= {"junit-3.8.1.jar"};
+		parseApi(f,jarnames,"junit");
+		
+		System.out.println("check");
 	}
 	
 }
@@ -124,16 +130,24 @@ class MethodVisitor extends VoidVisitorAdapter<Void> {
     	try{
     		System.out.println("-------------------");
 	        ResolvedMethodDeclaration m = n.resolve();	    
-//	        System.out.println("Qualified name "+m.getQualifiedName());
+	        
 	        JavaParserMethodDeclaration tp = new JavaParserMethodDeclaration(n, com);
 	       
 	        ArrayList<String> parameters = null;
 	        if(tp.accessSpecifier().asString().contains("public")){
+	        	System.out.println("Qualified name "+m.getQualifiedName());
 	        	parameters = new ArrayList<String>();
 		        for (int i=0;i< tp.getNumberOfParams();i++){
-		        	System.out.println("Param type: "+tp.getParam(i).describeType());
-		        	parameters.add(tp.getParam(i).describeType());
-		        	System.out.println("Param name:"+tp.getParam(i).getName());
+		        	try{
+		        		System.out.println("Param type: "+tp.getParam(i).describeType());
+			        	parameters.add(tp.getParam(i).describeType());
+			        	System.out.println("Param name:"+tp.getParam(i).getName());
+		        	}
+		        	catch(Exception e ){
+//		        		e.printStackTrace();
+		        		parameters.add("*");
+		        	}
+		        	
 		        }
 		        functions.add(new ApiStorage(m.getQualifiedName(), parameters));
 		        fullQualifiedHash.add(m.getQualifiedName());

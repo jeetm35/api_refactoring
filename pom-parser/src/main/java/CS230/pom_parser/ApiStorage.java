@@ -1,8 +1,9 @@
 package CS230.pom_parser;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ApiStorage {
+public class ApiStorage implements Serializable {
 
 	String fullyQualifiedName;
 	//String accessModifier;
