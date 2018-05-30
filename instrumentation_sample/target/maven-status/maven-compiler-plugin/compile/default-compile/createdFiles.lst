@@ -1,4 +1,3 @@
 sneha/instrumentation_sample/Sleeping.class
-sneha/instrumentation_sample/AgentTest.class
 sneha/instrumentation_sample/SleepingClassFileTransformer.class
 sneha/instrumentation_sample/Agent.class

@@ -5,4 +5,4 @@ Steps to instrument:
 mvn install
 This will create a jar in the target/ directory.
 4) Now run the class which has the main function in the following manner:
-java -javaagent:target/instrumentation_sample-0.0.1-SNAPSHOT.jar -cp ./lib/javassist-3.14.0-GA.jar:./lib/xmlpull-1.1.3.1.jar:./lib/xpp3-1.1.4c.jar:./lib/xstream-1.4.9.jar sneha.instrumentation_sample.AgentTest
+java -javaagent:target/instrumentation_sample-0.0.1-SNAPSHOT.jar -cp ./lib/javassist-3.18.2-GA.jar:./lib/xmlpull-1.1.3.1.jar:./lib/xpp3-1.1.4c.jar:./lib/xstream-1.4.9.jar sneha.instrumentation_sample.AgentTest
