@@ -6,8 +6,9 @@ import java.security.ProtectionDomain;
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtMethod;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
+import java.io.*;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Source;
@@ -27,6 +28,7 @@ public class SleepingClassFileTransformer implements ClassFileTransformer {
         ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
     	//System.out.println("inside SleepingClassFileTransformer's transform!");
         byte[] byteCode = classfileBuffer;
+        String path = "C/Users/Sneha/eclipse-workspace/instrumentation_sample";
         //System.out.println("ClassName ="+className.toString());
         if (className.equals("sneha/instrumentation_sample/Sleeping")) {
         	System.out.println("Found class!");
@@ -35,50 +37,47 @@ public class SleepingClassFileTransformer implements ClassFileTransformer {
                 ClassPool cp = ClassPool.getDefault(); 
                 CtClass cc = cp.get("sneha.instrumentation_sample.Sleeping");
                 CtMethod m = cc.getDeclaredMethod("randomSleep");
-                cp.importPackage("com.thoughtworks.xstream.XStream");
-                cp.importPackage("com.thoughtworks.xstream.io.xml.StaxDriver");
-                //System.out.println("Signature of method is:"+m.getSignature().toString());
-                m.addLocalVariable("elapsedTime", CtClass.longType);
-                
-                //m.insertBefore("elapsedTime = System.currentTimeMillis();");
-                //m.insertAfter("{elapsedTime = System.currentTimeMillis() - elapsedTime;"+ "System.out.println(\"Method Executed in ms: \" + elapsedTime);}");
                 String methodName = m.getName();
-               
-                //m.insertAt(1, "System.out.println(\"Val=\"+name);");
-                
-                //m.insertAfter("{System.out.println(\"Val=\"+$1);}");
                 
                 CtClass[] pTypes = m.getParameterTypes();
-                StringBuilder sbs = new StringBuilder();
-                sbs.append( "StringBuilder sbArgs = new StringBuilder();" );
-                //sbs.append( "sbArgs.append(com.thoughtworks.xstream.XStream xs = new com.thoughtworks.xstream.XStream\"(\"new com.thoughtworks.xstream.io.xml.StaxDriver\"())\");" );
+                //StringBuilder sbs = new StringBuilder();
+                
+                //Set path here
+                String in = "java.lang.String path = \"/mnt/c/Users/Sneha/eclipse-workspace/instrumentation_sample/serialize_"+cc.getName()+".txt\";";
+                
+                //Create xstream object here
+                in+= "java.io.ObjectOutputStream out = new java.io.ObjectOutputStream(new java.io.FileOutputStream(new java.io.File(path), true));";
+                in+="com.thoughtworks.xstream.XStream xs = new com.thoughtworks.xstream.XStream(new com.thoughtworks.xstream.io.xml.StaxDriver());";
+            	in+="java.lang.String xml;";
+            	in+="java.lang.String completeXML=\"\";";
+                //sbs.append( "StringBuilder sbArgs = new StringBuilder();" );
+                
+            	//Serialize each argument
                 for( int i=0; i < pTypes.length; ++i ) {
                     CtClass pType = pTypes[i];
-                    	//System.out.println("argVal=");
-                    	if(i == pTypes.length-1) {
-                    	/*sbs.append("sbArgs.append(com.thoughtworks.xstream.XStream xs = new com.thoughtworks.xstream.XStream +\"(\"+new com.thoughtworks.xstream.io.xml.StaxDriver());"
-                    				+ "java.lang.String xml = xs.toXML($args[" + i + "]);"
-                    				+ "System.out.println(xml));");*/
-                    	sbs.append( "sbArgs.append( $args[" + i + "]);" );
-                    	}
-                    	else
-                    		sbs.append( "sbArgs.append( $args[" + i + "] + \", \" );" );    
+                    in+="xml = xs.toXML($args[" + i + "]);";
+                	in+="completeXML+=xml;\n";
+                    if(i == pTypes.length-1) {
+                    	in+="System.out.println(completeXML);";
+                    	in+="System.out.println(\"--------------------------------------------------\");";
+                    }
                 }
-                
+                /*
                 sbs.append( "StringBuilder sb = new StringBuilder();" );
-                //sbs.append("sb.append("+methodName+");");
+                sbs.append("sb.append("+methodName+");");
                 sbs.append( "sb.append( \"(\" );" );  
                 sbs.append( "sb.append( sbArgs.toString() );" );
+                sbs.append( "sbArgs.toString();" );
                 sbs.append( "sb.append( \")\" );" );
-                //System.out.println(sbs.toString());
+                System.out.println(in);
                 sbs.append("System.out.println(sb.toString());");
-                //m.insertAt(1,"{" + sbs.toString() + "}");
+                String temp=sbs.toString();*/
+    			
+                //Write to file
+                in+="out.writeObject(completeXML);";
                 
-                /* This is working */
-                m.insertAt(1,"{com.thoughtworks.xstream.XStream xs = new com.thoughtworks.xstream.XStream(new com.thoughtworks.xstream.io.xml.StaxDriver());"
-                		+ "java.lang.String xml = xs.toXML($1);"
-                		+ "System.out.println(xml);}");
-                		
+                //insert at the beginning of the method execution
+                m.insertAt(1,"{" + in + "}");
                 
                 byteCode = cc.toBytecode();
                 cc.detach();
