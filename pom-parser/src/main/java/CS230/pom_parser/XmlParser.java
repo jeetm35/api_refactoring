@@ -175,7 +175,7 @@ public class XmlParser implements Serializable {
 				
 			Map sortedMap = sortByValues(versionCount.get(api.get(i)));
 			Iterator iti = sortedMap.entrySet().iterator();
-			System.out.println(api.get(i));
+			System.out.println(api.get(i)+"---------"+packageCount.get(api.get(i)));
 			if(iti.hasNext()){
 					Map.Entry me = (Map.Entry)iti.next();
 					System.out.println(me.getKey()+"----"+me.getValue());
@@ -258,7 +258,7 @@ public class XmlParser implements Serializable {
 		XmlParser  parser = new XmlParser();
 		parser.parseDirectory(path);
 		parser.showPackages();
-//		parser.showVersion();
+		parser.showVersion();
 //		parser.showTopK(3);	 
 		try{
 			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(new File(path,"serliaze.txt")));
@@ -269,9 +269,9 @@ public class XmlParser implements Serializable {
 		catch(Exception e ){
 			System.out.println(e);
 		}
-		parser.findPackageMove(path, "junit/junit", path+"_api", "4.12", true);
+//		parser.findPackageMove(path, "junit/junit", path+"_api", "4.12", true);
 		System.out.println(parser.reposScanned);
-		System.out.println(parser.repoDependencyCount);
-		parser.showtopversion(parser.showTopK(3));
+//		System.out.println(parser.repoDependencyCount);
+		parser.showtopversion(parser.showTopK(20));
 	}
 }
