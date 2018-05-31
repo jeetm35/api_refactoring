@@ -3,23 +3,17 @@ package sneha.instrumentation_sample;
 import java.lang.instrument.ClassFileTransformer;
 import java.lang.instrument.IllegalClassFormatException;
 import java.security.ProtectionDomain;
+
+import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtMethod;
+import javassist.expr.ExprEditor;
+import javassist.expr.MethodCall;
+
 import java.io.*;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
-
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.sax.SAXSource;
-import javax.xml.transform.sax.SAXTransformerFactory;
-import javax.xml.transform.stream.StreamResult;
-import org.xml.sax.InputSource;
-
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.StaxDriver;
 
  
 public class SleepingClassFileTransformer implements ClassFileTransformer {
@@ -36,7 +30,26 @@ public class SleepingClassFileTransformer implements ClassFileTransformer {
             	System.out.println("Beginning to instrument!!!");
                 ClassPool cp = ClassPool.getDefault(); 
                 CtClass cc = cp.get("sneha.instrumentation_sample.Sleeping");
+              
                 CtMethod m = cc.getDeclaredMethod("randomSleep");
+               
+                
+                /*To instrument method calls of a system class*/
+                m.instrument(new ExprEditor() {
+                	public void edit(final MethodCall m1) throws CannotCompileException {
+                		System.out.println("className of m1="+m1.getClassName());
+                		System.out.println("Method name of m1="+m1.getMethodName());
+                		if("sneha.instrumentation_sample.Sleeping".equals(m1.getClassName()) && "randomSleep".equals(m1.getMethodName())) {
+                			System.out.println("Inside if ......");
+                			 m1.replace("{long startMs = System.currentTimeMillis(); "
+                			 		+ "$_ = $proceed($$); "
+                			 		+ "long endMs = System.currentTimeMillis(); "
+                			 		+ "System.out.println(\"Executed in ms: \" + (endMs-startMs));}");					 
+                		}
+                	}
+                });
+                
+                
                 String methodName = m.getName();
                 
                 CtClass[] pTypes = m.getParameterTypes();
@@ -53,15 +66,17 @@ public class SleepingClassFileTransformer implements ClassFileTransformer {
                 //sbs.append( "StringBuilder sbArgs = new StringBuilder();" );
                 
             	//Serialize each argument
+            	System.out.println("#Arguments="+pTypes.length);
                 for( int i=0; i < pTypes.length; ++i ) {
                     CtClass pType = pTypes[i];
                     in+="xml = xs.toXML($args[" + i + "]);";
                 	in+="completeXML+=xml;\n";
-                    if(i == pTypes.length-1) {
-                    	in+="System.out.println(completeXML);";
-                    	in+="System.out.println(\"--------------------------------------------------\");";
-                    }
+                    /*if(i == pTypes.length-1) {
+                    	
+                    }*/
                 }
+                in+="System.out.println(completeXML);";
+                in+="System.out.println(\"********* This is the instrumentated line **********\");";
                 /*
                 sbs.append( "StringBuilder sb = new StringBuilder();" );
                 sbs.append("sb.append("+methodName+");");
@@ -77,7 +92,9 @@ public class SleepingClassFileTransformer implements ClassFileTransformer {
                 in+="out.writeObject(completeXML);";
                 
                 //insert at the beginning of the method execution
-                m.insertAt(1,"{" + in + "}");
+                //m.insertAt(1,"{" + in + "}");
+                //m.insertAfter("{" + in + "}");
+                m.insertBefore("{" + in + "}");
                 
                 byteCode = cc.toBytecode();
                 cc.detach();
