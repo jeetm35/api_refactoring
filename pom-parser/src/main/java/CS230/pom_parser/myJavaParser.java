@@ -3,6 +3,7 @@ package CS230.pom_parser;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,15 +30,16 @@ public class myJavaParser {
 
 	public static void main(String[] args) throws Exception {
 		// creates an input stream for the file to be parsed
-		FileInputStream in = new FileInputStream(
-				"C:\\Users\\kprat\\git\\pom-parser\\src\\main\\java\\CS230\\pom_parser\\sample.java");
+		//FileInputStream in = new FileInputStream("C:\\Users\\kprat\\git\\pom-parser\\src\\main\\java\\CS230\\pom_parser\\sample.java");
 		// FileInputStream in = new
 		// FileInputStream("main\\java\\CS230\\pom_parser\\sample.java");
 
 		// parse the file
-		File dir=new File("C:\\Users\\kprat\\git\\pom-parser\\src\\main\\java\\sample");
-		String jarnames[]= {"junit-3.8.1.jar"};
-		parseCode(dir,jarnames,"pomparser");
+		File dir=new File("C:\\Users\\kprat\\git\\pom-parser\\src\\main\\java\\Sample");
+		//String jarnames[]= {"junit-3.8.1.jar","junit-3.8.2.jar"};
+		
+		File jarDir=new File("C:\\Users\\kprat\\.m2\\repository");
+		parseCode(dir,jarDir,"pomparser");
 		
 		
 //		ParserConfiguration ps = new ParserConfiguration();
@@ -52,29 +54,42 @@ public class myJavaParser {
 		// prints the resulting compilation unit to default system output
 	}
 
-	public static void parseCode(File dir, String jarnames[], String repo) {
+	public static void parseCode(File dir, File jarDir, String repo) {
 
 		HashSet<ApiStorage> functions = new HashSet<ApiStorage>();
 		HashSet<String> fullQualifiedHash = new HashSet<String>();
 		String s[] = new String[1];
 		s[0] = "java";
+		
+		
 		ParserConfiguration ps = new ParserConfiguration();
 
 		JavaParser jp = new com.github.javaparser.JavaParser(ps);
 		JavaParser.setStaticConfiguration(ps);
 		CombinedTypeSolver com = new CombinedTypeSolver(new ReflectionTypeSolver(true));
-		for (String su : jarnames) {
+		String jarExt[]={"jar"};
+		Collection<File> jars = FileUtils.listFiles(jarDir, jarExt, true);
+		for(File file:jars){
 			try {
-				com.add(new JarTypeSolver(new File("./jars/" + su)));
-				// com.add(new JarTypeSolver(new
-				// File("/Users/jeetmehta/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar")));
-				// com.add(new JarTypeSolver(new
-				// File("C:\\Users\\kprat\\.m2\\repository\\com\\google\\guava\\guava\\23.4-jre\\guava-23.4-jre.jar")));
-			} catch (Exception e) {
+				com.add(new JarTypeSolver(file));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
 		}
+		
+//		for (String su : jarnames) {
+//			try {
+//				com.add(new JarTypeSolver(new File("./jars/" + su)));
+//				// com.add(new JarTypeSolver(new
+//				// File("/Users/jeetmehta/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar")));
+//				// com.add(new JarTypeSolver(new
+//				// File("C:\\Users\\kprat\\.m2\\repository\\com\\google\\guava\\guava\\23.4-jre\\guava-23.4-jre.jar")));
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//
+//		}
 		ps.setSymbolResolver(new JavaSymbolSolver(com));
 		
 		//

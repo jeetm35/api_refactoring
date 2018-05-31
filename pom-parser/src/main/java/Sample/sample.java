@@ -22,10 +22,10 @@ import junit.framework.Assert;
 
 public class sample {
 
-	private int add(String c,File s,BufferedReader br,Converter<Integer, String> p){
-		int a=0,b=0;
-		return a+b;
-	}
+//	private int add(String c,File s,BufferedReader br,Converter<Integer, String> p){
+//		int a=0,b=0;
+//		return a+b;
+//	}
 	protected String hello(){
 		return "Hello World :) ";
 	}
@@ -38,7 +38,7 @@ public class sample {
 		
 	}
 	public void  foo(){
-		int c= add("ha",new File(""),new BufferedReader(null),null);
+		//int c= add("ha",new File(""),new BufferedReader(null),null);
 		//String f=hello();
 		//App a=new App();
 		//App.just();
