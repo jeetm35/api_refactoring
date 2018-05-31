@@ -1,4 +1,4 @@
-package Sample;
+package Sample.InnerSample;
 
 
 
@@ -17,6 +17,7 @@ import com.github.javaparser.JavaParser;
 import com.github.javaparser.version.Java10PostProcessor;
 import com.google.common.base.Converter;
 
+import CS230.pom_parser.App;
 import junit.framework.Assert;
 
 
@@ -40,9 +41,10 @@ public class sample {
 	public void  foo(){
 		//int c= add("ha",new File(""),new BufferedReader(null),null);
 		//String f=hello();
-		//App a=new App();
-		//App.just();
-		
+		App a=new App();
+		App.just();
+		Sample1 s = new Sample1();
+		Assert.assertTrue(s.alwaysTrue());
 		Assert.assertFalse(5<10);
 	}
 	

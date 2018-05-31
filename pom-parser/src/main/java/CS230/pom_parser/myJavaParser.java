@@ -24,6 +24,7 @@ import com.github.javaparser.symbolsolver.javaparsermodel.declarations.JavaParse
 import com.github.javaparser.symbolsolver.model.resolution.SymbolReference;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.CombinedTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.JarTypeSolver;
+import com.github.javaparser.symbolsolver.resolution.typesolvers.JavaParserTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
 
 public class myJavaParser {
@@ -33,7 +34,7 @@ public class myJavaParser {
 		//FileInputStream in = new FileInputStream("C:\\Users\\kprat\\git\\pom-parser\\src\\main\\java\\CS230\\pom_parser\\sample.java");
 		// FileInputStream in = new
 		// FileInputStream("main\\java\\CS230\\pom_parser\\sample.java");
-
+		//ObjectInputStream in = new ObjectInputStream(new FileInputStream(new File(path,"serliaze.txt")));
 		// parse the file
 		File dir=new File("C:\\Users\\kprat\\git\\pom-parser\\src\\main\\java\\Sample");
 		//String jarnames[]= {"junit-3.8.1.jar","junit-3.8.2.jar"};
@@ -67,6 +68,8 @@ public class myJavaParser {
 		JavaParser jp = new com.github.javaparser.JavaParser(ps);
 		JavaParser.setStaticConfiguration(ps);
 		CombinedTypeSolver com = new CombinedTypeSolver(new ReflectionTypeSolver(true));
+		//com.add(new JavaParserTypeSolver(new File("src/main/java/CS230/pom_parser")));
+		com.add(new JavaParserTypeSolver(new File("src/main/java")));
 		String jarExt[]={"jar"};
 		Collection<File> jars = FileUtils.listFiles(jarDir, jarExt, true);
 		for(File file:jars){
@@ -77,6 +80,7 @@ public class myJavaParser {
 				e.printStackTrace();
 			}
 		}
+		
 		
 //		for (String su : jarnames) {
 //			try {
@@ -153,7 +157,8 @@ public class myJavaParser {
 				// File("C:\\Users\\kprat\\.m2\\repository\\com\\google\\guava\\guava\\23.4-jre\\guava-23.4-jre.jar")));
 
 				JavaParserFacade a = JavaParserFacade.get(com);
-
+				//n.resolveInvokedMethod()
+				//a.solve(n.getName())
 				SymbolReference<ResolvedMethodDeclaration> p = a.solve(n);
 				p.getCorrespondingDeclaration();
 				// JavaParserMethodDeclaration tp =new

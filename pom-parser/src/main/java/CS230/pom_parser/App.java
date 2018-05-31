@@ -11,4 +11,9 @@ public class App
     {
         System.out.println( "Hello World!" );
     }
+
+	public static void just() {
+		// TODO Auto-generated method stub
+		
+	}
 }
