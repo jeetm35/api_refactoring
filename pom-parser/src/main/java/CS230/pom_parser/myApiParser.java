@@ -94,11 +94,13 @@ public class myApiParser {
 	public static void main(String[] args){
 	
 		System.out.println("sff");
-		File f = new File("/Users/jeetmehta/Downloads/junit3.8.1");
+		//jar to be analysed
+		File f = new File("/Users/jeetmehta/Downloads/slf4j-1.7.25");
 //		for(File fi : f.listFiles()){
 //			System.out.println(fi.getName());
 //		}
-		String jarnames[]= {"junit-3.8.1.jar"};
+		//used for symbol resolver
+		String jarnames[]= {"junit-3.8.1.jar","slf4j-1.7.25.jar"};
 		parseApi(f,jarnames,"junit");
 		
 		System.out.println("check");
