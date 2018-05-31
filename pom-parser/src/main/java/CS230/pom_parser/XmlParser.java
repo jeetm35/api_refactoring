@@ -5,10 +5,13 @@ import java.util.Map.Entry;
 
 import javax.swing.plaf.synth.SynthSpinnerUI;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
-import org.codehaus.plexus.util.FileUtils;
+
+
+import com.github.javaparser.ParserConfiguration;
 
 public class XmlParser implements Serializable {
 	
@@ -23,6 +26,10 @@ public class XmlParser implements Serializable {
 		reposScanned = 0;
 	}
 	public void add(String api, String version){
+		addtoHash(api, version, this.packageCount, this.versionCount);
+	}
+	
+	public static void addtoHash(String api, String version, TreeMap<String,Integer> packageCount, HashMap<String,HashMap<String,Integer>> versionCount){
 		packageCount.put(api, packageCount.getOrDefault(api, 0)+1);
 		if(!version.equals("null")){
 			if(versionCount.containsKey(api)){
@@ -79,6 +86,69 @@ public class XmlParser implements Serializable {
     return sortedByValues;
     }
 	
+	public void parsefile(File pom, TreeMap<String,Integer> tempPackageCount, HashMap<String,HashMap<String,Integer>> tempVersionCount ){
+		MavenXpp3Reader xpp3Reader = null;
+		Reader reader = null;
+		List<Dependency> dependencies = null;
+		Properties properties = null;
+		Model model = null;
+		Dependency dependency = null;
+		if(pom.exists()){
+			try{
+				xpp3Reader = new MavenXpp3Reader();
+				reader = new FileReader(pom); 
+			    model = xpp3Reader.read(reader);
+			    dependencies = model.getDependencies();
+			    if(model.getDependencyManagement() != null)
+			    	dependencies.addAll(model.getDependencyManagement().getDependencies());
+			    properties = model.getProperties();
+			    if(dependencies.size() >= 1)
+			    for (int i = 0; i < dependencies.size(); i++) {
+			    	try{
+			    		dependency = dependencies.get(i);
+				        String q = "null";
+				        if(dependency.getVersion() != null){
+				        	if(dependency.getVersion().trim().startsWith("$")){
+					        	q = dependency.getVersion().trim();
+					        	q = q.substring(2, q.length()-1);
+					        	q = properties.getProperty(q);
+					        }
+					        else{
+					        	q = dependency.getVersion().trim();
+					        }
+				        }
+				        String group = dependency.getGroupId() != null ?  dependency.getGroupId() : "";
+				        String artifact = dependency.getArtifactId() != null ? dependency.getArtifactId() : "";
+				        q = q == null ?  "null" : q;
+				        addtoHash(group+"/"+artifact,q,tempPackageCount,tempVersionCount ); 
+//				        System.out.println(dependency.getGroupId()+"/"+dependency.getArtifactId());
+			    	}
+			    	catch(Exception e){
+			    		e.printStackTrace();
+			    	}
+			        
+			    }
+			} 
+			catch(Exception e ){
+				e.printStackTrace();
+			}
+		
+		}
+	}
+	public void parseRepo(File repo,TreeMap<String,Integer> tempPackageCount, HashMap<String,HashMap<String,Integer>> tempVersionCount ){
+		String s[] = new String[1];
+		s[0] = "xml";
+		ParserConfiguration ps=new ParserConfiguration();
+		Collection<File> files = FileUtils.listFiles(repo, s, true); 
+		for(File f: files){
+			if(f.getName().equals("pom.xml")){
+				parsefile(f,tempPackageCount, tempVersionCount);
+			}
+		}
+	}
+	
+	
+	
 	public ArrayList<String> showTopK(int k){
 		ArrayList<String> res = new ArrayList<String>();
 		Map sortedMap = sortByValues(packageCount);
@@ -125,52 +195,29 @@ public class XmlParser implements Serializable {
 			System.out.println("----------------------------------------------");
 			System.out.println(child.getName());
 			if(child.isDirectory()){
-				File pom = new File(child, "pom.xml"); 
-				if(pom.exists()){
-					reposScanned++;
-					try{
-						xpp3Reader = new MavenXpp3Reader();
-						reader = new FileReader(pom); 
-					    model = xpp3Reader.read(reader);
-					    dependencies = model.getDependencies();
-					    if(model.getDependencyManagement() != null)
-					    	dependencies.addAll(model.getDependencyManagement().getDependencies());
-					    properties = model.getProperties();
-					    if(dependencies.size() >= 1)
-					    	repoDependencyCount++;
-					    for (int i = 0; i < dependencies.size(); i++) {
-					    	try{
-					    		dependency = dependencies.get(i);
-						        String q = "null";
-						        if(dependency.getVersion() != null){
-						        	if(dependency.getVersion().trim().startsWith("$")){
-							        	q = dependency.getVersion().trim();
-							        	q = q.substring(2, q.length()-1);
-							        	q = properties.getProperty(q);
-							        }
-							        else{
-							        	q = dependency.getVersion().trim();
-							        }
-						        }
-						        String group = dependency.getGroupId() != null ?  dependency.getGroupId() : "";
-						        String artifact = dependency.getArtifactId() != null ? dependency.getArtifactId() : "";
-						        q = q == null ?  "null" : q;
-						        add(group+"/"+artifact,q); 
-						        System.out.println(dependency.getGroupId()+"/"+dependency.getArtifactId());
-					    	}
-					    	catch(Exception e){
-					    		e.printStackTrace();
-					    	}
-					        
-					    }
-					} 
-					catch(Exception e ){
-						e.printStackTrace();
+				reposScanned++;
+				TreeMap<String,Integer> tempPackageCount = new TreeMap<String,Integer>();;
+				HashMap<String,HashMap<String,Integer>> tempVersionCount = new HashMap<String,HashMap<String,Integer>>();
+				parseRepo(child, tempPackageCount,tempVersionCount );
+				for(String key :tempPackageCount.keySet()){
+					if(tempVersionCount.get(key) == null){
+						add(key,"null");
+						continue;
+					}	
+					Map sortedMap = sortByValues(tempVersionCount.get(key));
+					Iterator iti = sortedMap.entrySet().iterator();
+					if(iti.hasNext()){
+							Map.Entry me = (Map.Entry)iti.next();
+//							System.out.println(me.getKey()+"----"+me.getValue());
+							add(key,me.getKey().toString());
 					}
+					
 				}
 			}
 		}
 	}
+	
+
 	
 	public void findPackageMove(String path, String api, String destination, String version , boolean checkVersion ){
 		File directory = new File(path);
@@ -184,49 +231,24 @@ public class XmlParser implements Serializable {
 			System.out.println(child);
 			if(child.isDirectory()){
 				File pom = new File(child, "pom.xml"); 
-				if(pom.exists()){	
-					try{
-						xpp3Reader = new MavenXpp3Reader();
-						reader = new FileReader(pom); 
-					    model = xpp3Reader.read(reader);
-					    dependencies = model.getDependencies();
-					    if(model.getDependencyManagement() != null)
-					    	dependencies.addAll(model.getDependencyManagement().getDependencies());
-					    properties = model.getProperties();
-					    for (int i = 0; i < dependencies.size(); i++) {
-					        dependency = dependencies.get(i);
-					        String group = dependency.getGroupId() != null ?  dependency.getGroupId() : "";
-					        String artifact = dependency.getArtifactId() != null ? dependency.getArtifactId() : "";
-					        if( (group+"/"+artifact).equals(api)){
-					        	if(checkVersion == false){
-					        		FileUtils.copyDirectoryStructure(child, new File(destination,child.getName()));
-					        		break;
-					        	}
-					        	String q = null;
-					        	if(dependency.getVersion() != null){
-						        	if(dependency.getVersion().trim().startsWith("$")){
-							        	q = dependency.getVersion().trim();
-							        	q = q.substring(2, q.length()-1);
-							        	q = properties.getProperty(q);
-							        }
-							        else{
-							        	q = dependency.getVersion().trim();
-							        }
-						        }  
-						        if(q==null || q.equals(version)){
-//						        	System.out.println("inside");
-						        	FileUtils.copyDirectoryStructure(child, new File(destination,child.getName()));
-						        }
-						        else{
-						        	break;
-						        }
-					        } 
-					    }
-					} 
-					catch(Exception e ){
-						System.out.println(e.getStackTrace().toString());
+				try{
+					TreeMap<String,Integer> tempPackageCount = new TreeMap<String,Integer>();;
+					HashMap<String,HashMap<String,Integer>> tempVersionCount = new HashMap<String,HashMap<String,Integer>>();
+					parseRepo(child, tempPackageCount,tempVersionCount );
+					if(checkVersion == false && tempPackageCount.containsKey(api)){
+						org.codehaus.plexus.util.FileUtils.copyDirectoryStructure(child, new File(destination,child.getName()));
+					}
+					else if (checkVersion && tempPackageCount.containsKey(api)) {
+						if(tempVersionCount.get(api) != null && tempVersionCount.get(api).containsKey(version)){
+							org.codehaus.plexus.util.FileUtils.copyDirectoryStructure(child, new File(destination,child.getName()));
+						}
 					}
 				}
+				catch(Exception e){
+					e.printStackTrace();
+				}
+				
+				
 			}
 		}
 	}
@@ -235,7 +257,7 @@ public class XmlParser implements Serializable {
 		String path = "/Users/jeetmehta/Downloads/github_repos";
 		XmlParser  parser = new XmlParser();
 		parser.parseDirectory(path);
-//		parser.showPackages();
+		parser.showPackages();
 //		parser.showVersion();
 //		parser.showTopK(3);	 
 		try{
@@ -247,7 +269,7 @@ public class XmlParser implements Serializable {
 		catch(Exception e ){
 			System.out.println(e);
 		}
-//		parser.findPackageMove(path, "com.fasterxml.jackson.core/jackson-databind", path+"_api", "2.9.4");
+		parser.findPackageMove(path, "junit/junit", path+"_api", "4.12", true);
 		System.out.println(parser.reposScanned);
 		System.out.println(parser.repoDependencyCount);
 		parser.showtopversion(parser.showTopK(3));
