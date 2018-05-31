@@ -1,4 +1,4 @@
-package CS230.pom_parser;
+package Sample;
 
 
 
