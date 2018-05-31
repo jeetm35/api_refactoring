@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 import javax.swing.plaf.synth.SynthSpinnerUI;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.DirectoryFileFilter;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
@@ -254,7 +255,14 @@ public class XmlParser implements Serializable {
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String path = "/Users/jeetmehta/Downloads/github_repos";
+		String path = "/Users/jeetmehta/Downloads/github_repos/";
+//		File f = new File(path);
+//		Collection<File> files = FileUtils.listFilesAndDirs(f, DirectoryFileFilter.INSTANCE, DirectoryFileFilter.INSTANCE);
+//		for(File a : files){
+//			System.out.println(a.getAbsolutePath());
+//		}
+		
+		
 		XmlParser  parser = new XmlParser();
 		parser.parseDirectory(path);
 		parser.showPackages();
