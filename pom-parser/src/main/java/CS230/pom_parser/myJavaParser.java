@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 
 import org.apache.commons.io.FileUtils;
 
@@ -55,7 +56,7 @@ public class myJavaParser {
 		}
 		
 		//List<File> dire;
-		File directory=new File("C:\\Users\\kprat\\git\\pom-parser\\src\\main\\java");
+		File directory=new File("C:\\Users\\kprat\\git\\pom-parser\\src\\main\\java\\Sample");
 		for(File dir:directory.listFiles()){
 			if(dir.isDirectory()){
 				HashMap<ApiStorage,IntegerCount> res = new HashMap<ApiStorage, IntegerCount>();
@@ -69,6 +70,13 @@ public class myJavaParser {
 					ObjectOutputStream out = new ObjectOutputStream(
 							new FileOutputStream(new File(path, dir.getName() + ".txt")));
 					out.writeObject(res);
+					Iterator<ApiStorage> iter = res.keySet().iterator();
+					System.out.println("##########################");
+					while(iter.hasNext()){
+						ApiStorage tetmp=iter.next();
+						if(res.get(tetmp).count>0)
+							System.out.println(tetmp.fullyQualifiedName);
+					}
 					out.close();
 					
 				} catch (Exception e) {
@@ -226,22 +234,26 @@ public class myJavaParser {
 				// JavaParserMethodDeclaration tp =new
 				// JavaParserMethodDeclaration(, com);
 				// p.getClass()
-				System.out.println("xxxxxxxxxxxxxxxxxxxxxx");
-				System.out.println("Qualified name:" + p.getCorrespondingDeclaration().getQualifiedName());
 				String qName= p.getCorrespondingDeclaration().getQualifiedName();
 				ArrayList<String> params=new ArrayList<String>();
 				p.getCorrespondingDeclaration().getQualifiedSignature();
 				for (int i = 0; i < p.getCorrespondingDeclaration().getNumberOfParams(); i++) {
-					System.out.println("Param type: " + p.getCorrespondingDeclaration().getParam(i).describeType());
+					//System.out.println("Param type: " + p.getCorrespondingDeclaration().getParam(i).describeType());
 					params.add(p.getCorrespondingDeclaration().getParam(i).describeType());
 
 				}
 				
 				p.getCorrespondingDeclaration().getQualifiedName();
 				ApiStorage as = new ApiStorage(qName, params);
-				if(apiFunctionNames.contains(qName)&& apiData.contains(as)){
-					res.get(as).increment();
-					mainRes.get(as).increment();
+				if(apiFunctionNames.contains(qName)){
+					if(apiData.contains(as)){
+						System.out.println("xxxxxxxxxxxxxxxxxxxxxx");
+						System.out.println("Qualified name:" + p.getCorrespondingDeclaration().getQualifiedName());
+						
+						res.get(as).increment();
+						mainRes.get(as).increment();
+					}
+					
 				}
 				//functions.add();
 		        //fullQualifiedHash.add(qName);
