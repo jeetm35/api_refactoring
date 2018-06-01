@@ -115,8 +115,8 @@ public class myApiParser {
 //			System.out.println(fi.getName());
 //		}
 		//used for symbol resolver
-		String jarnames[]= {"javassist-3.12.1.GA.jar","junit-3.8.1.jar"};
-		parseApi(f,jarnames,"junit");
+		String jarnames[]= {"javassist-3.12.1.GA.jar","junit-3.8.1.jar", "slf4j-1.7.25.jar"};
+		parseApi(f,jarnames,"slf4j");
 		
 		System.out.println("check");
 	}
