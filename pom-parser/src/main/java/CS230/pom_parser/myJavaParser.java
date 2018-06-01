@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,13 +15,11 @@ import org.apache.commons.io.FileUtils;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ParserConfiguration;
 import com.github.javaparser.ast.CompilationUnit;
-import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.expr.MethodCallExpr;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.javaparser.resolution.declarations.ResolvedMethodDeclaration;
 import com.github.javaparser.symbolsolver.JavaSymbolSolver;
 import com.github.javaparser.symbolsolver.javaparsermodel.JavaParserFacade;
-import com.github.javaparser.symbolsolver.javaparsermodel.declarations.JavaParserMethodDeclaration;
 import com.github.javaparser.symbolsolver.model.resolution.SymbolReference;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.CombinedTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.JarTypeSolver;
@@ -28,19 +27,31 @@ import com.github.javaparser.symbolsolver.resolution.typesolvers.JavaParserTypeS
 import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
 
 public class myJavaParser {
-
+	
+	public HashSet<ApiStorage> apiData;
+	public HashSet<String> apiFunctionNames;
+	
+	public myJavaParser(HashSet<ApiStorage> apiData,HashSet<String> apiFunctionNames) {
+		this.apiData=apiData;
+		this.apiFunctionNames=apiFunctionNames;
+	}
+	
 	public static void main(String[] args) throws Exception {
 		// creates an input stream for the file to be parsed
 		//FileInputStream in = new FileInputStream("C:\\Users\\kprat\\git\\pom-parser\\src\\main\\java\\CS230\\pom_parser\\sample.java");
 		// FileInputStream in = new
 		// FileInputStream("main\\java\\CS230\\pom_parser\\sample.java");
-		//ObjectInputStream in = new ObjectInputStream(new FileInputStream(new File(path,"serliaze.txt")));
+		ObjectInputStream in1 = new ObjectInputStream(new FileInputStream(new File("./results/junit_functionsHash.txt")));
+		ObjectInputStream in2= new ObjectInputStream(new FileInputStream(new File("./results/junit_fullQualifiedHash.txt")));
+		HashSet<ApiStorage> functionsHash = (HashSet<ApiStorage>) in1.readObject();
+		HashSet<String> functionNames = (HashSet<String>) in2.readObject();
+		
 		// parse the file
 		File dir=new File("C:\\Users\\kprat\\git\\pom-parser\\src\\main\\java\\Sample");
 		//String jarnames[]= {"junit-3.8.1.jar","junit-3.8.2.jar"};
 		
 		File jarDir=new File("C:\\Users\\kprat\\.m2\\repository");
-		parseCode(dir,jarDir,"pomparser");
+		new myJavaParser(functionsHash,functionNames).parseCode(dir,jarDir,"pomparser");
 		
 		
 //		ParserConfiguration ps = new ParserConfiguration();
@@ -55,8 +66,8 @@ public class myJavaParser {
 		// prints the resulting compilation unit to default system output
 	}
 
-	public static void parseCode(File dir, File jarDir, String repo) {
-
+	public void parseCode(File dir, File jarDir, String repo) {
+		
 		HashSet<ApiStorage> functions = new HashSet<ApiStorage>();
 		HashSet<String> fullQualifiedHash = new HashSet<String>();
 		String s[] = new String[1];
@@ -97,7 +108,7 @@ public class myJavaParser {
 		ps.setSymbolResolver(new JavaSymbolSolver(com));
 		
 		//
-		
+		//Parsing all java files 
 		Collection<File> files = FileUtils.listFiles(dir, s, true);
 		for (File file : files) {
 			System.out.println(file.getName());
