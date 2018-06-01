@@ -31,15 +31,15 @@ public class ApiStorage implements Serializable {
         	param =  this.paramters.size() == b.paramters.size();
     		for(int i = 0; i < this.paramters.size() && param; i++){
     			if( !this.paramters.get(i).equals("*") && !b.paramters.get(i).equals("*")){
-    				param = param && this.paramters.get(i).equals(b.paramters.get(i));   //check if they are compatible
-//    				try {
-//						Class c1=Class.forName(this.paramters.get(i));
-//						Class c2=Class.forName(b.paramters.get(i));
-//						param=param && c1.isAssignableFrom(c2);
-//					} catch (ClassNotFoundException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
+    				//param = param && this.paramters.get(i).equals(b.paramters.get(i));   //check if they are compatible
+    				try {
+						Class c1=Class.forName(this.paramters.get(i));
+						Class c2=Class.forName(b.paramters.get(i));
+						param=param && (c1.isAssignableFrom(c2)||c2.isAssignableFrom(c1));
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
     				
     				
     			}

@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 
 import org.apache.commons.io.FileUtils;
@@ -45,13 +46,59 @@ public class myJavaParser {
 		ObjectInputStream in2= new ObjectInputStream(new FileInputStream(new File("./results/junit_fullQualifiedHash.txt")));
 		HashSet<ApiStorage> functionsHash = (HashSet<ApiStorage>) in1.readObject();
 		HashSet<String> functionNames = (HashSet<String>) in2.readObject();
+		myJavaParser jp=new myJavaParser(functionsHash, functionNames);
+		File jarDir=new File("C:\\Users\\kprat\\.m2\\repository");
+		
+		HashMap<ApiStorage,IntegerCount> mainRes = new HashMap<ApiStorage, IntegerCount>();
+		for(ApiStorage func : functionsHash){
+			mainRes.put(func, new IntegerCount(0));
+		}
+		
+		//List<File> dire;
+		File directory=new File("C:\\Users\\kprat\\git\\pom-parser\\src\\main\\java");
+		for(File dir:directory.listFiles()){
+			if(dir.isDirectory()){
+				HashMap<ApiStorage,IntegerCount> res = new HashMap<ApiStorage, IntegerCount>();
+				for(ApiStorage func : functionsHash){
+					res.put(func, new IntegerCount(0));
+				}
+				new myJavaParser(functionsHash,functionNames).parseCode(dir,jarDir,"pomparser",res,mainRes);
+				try {
+					// set the right path
+					String path = "./StaticResults";
+					ObjectOutputStream out = new ObjectOutputStream(
+							new FileOutputStream(new File(path, dir.getName() + ".txt")));
+					out.writeObject(res);
+					out.close();
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}			
+			
+		}
+		try {
+			// set the right path
+			String path = "./StaticResults";
+			ObjectOutputStream out = new ObjectOutputStream(
+					new FileOutputStream(new File(path,  "totalStatic.txt")));
+			out.writeObject(mainRes);
+			out.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		
 		
 		// parse the file
-		File dir=new File("C:\\Users\\kprat\\git\\pom-parser\\src\\main\\java\\Sample");
+		//File dir=new File("C:\\Users\\kprat\\git\\pom-parser\\src\\main\\java\\Sample");
 		//String jarnames[]= {"junit-3.8.1.jar","junit-3.8.2.jar"};
 		
-		File jarDir=new File("C:\\Users\\kprat\\.m2\\repository");
-		new myJavaParser(functionsHash,functionNames).parseCode(dir,jarDir,"pomparser");
+		
+		
 		
 		
 //		ParserConfiguration ps = new ParserConfiguration();
@@ -66,7 +113,7 @@ public class myJavaParser {
 		// prints the resulting compilation unit to default system output
 	}
 
-	public void parseCode(File dir, File jarDir, String repo) {
+	public void parseCode(File dir, File jarDir, String repo, HashMap<ApiStorage, IntegerCount> res, HashMap<ApiStorage,IntegerCount> mainRes) {
 		
 		HashSet<ApiStorage> functions = new HashSet<ApiStorage>();
 		HashSet<String> fullQualifiedHash = new HashSet<String>();
@@ -116,7 +163,7 @@ public class myJavaParser {
 			try {
 				FileInputStream in = new FileInputStream(file);
 				CompilationUnit cu = jp.parse(in);
-				cu.accept(new MethodCallVisitor(functions, fullQualifiedHash, com), null);
+				cu.accept(new MethodCallVisitor(functions, fullQualifiedHash, com,res,mainRes), null);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -138,16 +185,20 @@ public class myJavaParser {
 
 	}
 
-	private static class MethodCallVisitor extends VoidVisitorAdapter<Void> {
+	private class MethodCallVisitor extends VoidVisitorAdapter<Void> {
 
 		HashSet<ApiStorage> functions;
 		HashSet<String> fullQualifiedHash;
 		CombinedTypeSolver com;
+		HashMap<ApiStorage, IntegerCount> res;
+		HashMap<ApiStorage, IntegerCount> mainRes;
 
-		public MethodCallVisitor(HashSet<ApiStorage> functions, HashSet<String> fullQualifiedHash, CombinedTypeSolver com) {
+		public MethodCallVisitor(HashSet<ApiStorage> functions, HashSet<String> fullQualifiedHash, CombinedTypeSolver com, HashMap<ApiStorage, IntegerCount> res, HashMap<ApiStorage,IntegerCount> mainRes) {
 			this.functions = functions;
 			this.fullQualifiedHash = fullQualifiedHash;
 			this.com = com;
+			this.res=res;
+			this.mainRes=mainRes;
 		}
 
 		@Override
@@ -187,8 +238,13 @@ public class myJavaParser {
 				}
 				
 				p.getCorrespondingDeclaration().getQualifiedName();
-				functions.add(new ApiStorage(qName, params));
-		        fullQualifiedHash.add(qName);
+				ApiStorage as = new ApiStorage(qName, params);
+				if(apiFunctionNames.contains(qName)&& apiData.contains(as)){
+					res.get(as).increment();
+					mainRes.get(as).increment();
+				}
+				//functions.add();
+		        //fullQualifiedHash.add(qName);
 				// p.getCorrespondingDeclaration().getParam(0).describeType();
 				// System.out.println(p);
 				super.visit(n, arg);
