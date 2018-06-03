@@ -110,7 +110,7 @@ public class myApiParser {
 	
 		System.out.println("sff");
 		//jar to be analysed
-		File f = new File("C:/Users/kprat/Downloads/slf4j-1.7.25");
+		File f = new File("/Users/jeetmehta/Downloads/junit3.8.1");
 //		for(File fi : f.listFiles()){
 //			System.out.println(fi.getName());
 //		}
