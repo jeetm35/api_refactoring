@@ -9,6 +9,7 @@ public class ApiStorage implements Serializable {
 	//String accessModifier;
 	ArrayList<String> paramters;
 	//String returnType;
+	public static ApiStorage total=new ApiStorage("totalCount", null);
 	
 	public ApiStorage(String fullyQualifiedName, String accessModifier, ArrayList<String> paramters, String returntype){
 		this.fullyQualifiedName = fullyQualifiedName;
@@ -22,11 +23,15 @@ public class ApiStorage implements Serializable {
 		this.paramters = paramters;
 	}
 	
+	public static ApiStorage getInstance(){
+		return total;
+	}
+	
 	public boolean equals(Object a) {
 		ApiStorage b = (ApiStorage) (a);
         boolean fqn = this.fullyQualifiedName != null && b.fullyQualifiedName != null ? this.fullyQualifiedName.equals(b.fullyQualifiedName) : false;
 //        boolean am = this.accessModifier != null && b.accessModifier != null ? this.accessModifier.equals(b.accessModifier) : false;
-        boolean param = false;
+        boolean param = true;
         if(this.paramters != null && b.paramters != null ){
         	param =  this.paramters.size() == b.paramters.size();
     		for(int i = 0; i < this.paramters.size() && param; i++){

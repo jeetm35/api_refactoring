@@ -54,15 +54,18 @@ public class myJavaParser {
 		for(ApiStorage func : functionsHash){
 			mainRes.put(func, new IntegerCount(0));
 		}
-		
+		mainRes.put(ApiStorage.getInstance(), new IntegerCount(0));
 		//List<File> dire;
-		File directory=new File("C:\\Users\\kprat\\git\\pom-parser\\src\\main\\java\\Sample");
+		File directory=new File("C:\\Users\\kprat\\git\\pom-parser\\src\\main");
 		for(File dir:directory.listFiles()){
 			if(dir.isDirectory()){
+				System.out.println("Dir"+dir.getName());
 				HashMap<ApiStorage,IntegerCount> res = new HashMap<ApiStorage, IntegerCount>();
+				
 				for(ApiStorage func : functionsHash){
 					res.put(func, new IntegerCount(0));
 				}
+				res.put(ApiStorage.getInstance(), new IntegerCount(0));
 				new myJavaParser(functionsHash,functionNames).parseCode(dir,jarDir,"pomparser",res,mainRes);
 				try {
 					// set the right path
@@ -135,7 +138,7 @@ public class myJavaParser {
 		JavaParser.setStaticConfiguration(ps);
 		CombinedTypeSolver com = new CombinedTypeSolver(new ReflectionTypeSolver(true));
 		//com.add(new JavaParserTypeSolver(new File("src/main/java/CS230/pom_parser")));
-		com.add(new JavaParserTypeSolver(new File("src/main/java")));
+		com.add(new JavaParserTypeSolver(dir));
 		String jarExt[]={"jar"};
 		Collection<File> jars = FileUtils.listFiles(jarDir, jarExt, true);
 		for(File file:jars){
@@ -251,7 +254,9 @@ public class myJavaParser {
 						System.out.println("Qualified name:" + p.getCorrespondingDeclaration().getQualifiedName());
 						
 						res.get(as).increment();
+						res.get(ApiStorage.getInstance()).increment();
 						mainRes.get(as).increment();
+						mainRes.get(ApiStorage.getInstance()).increment();
 					}
 					
 				}
@@ -261,7 +266,8 @@ public class myJavaParser {
 				// System.out.println(p);
 				super.visit(n, arg);
 			} catch (Exception e) {
-				e.printStackTrace();
+				System.out.println("Error=========================="+n.getName());
+				//e.printStackTrace();
 			}
 		}
 
