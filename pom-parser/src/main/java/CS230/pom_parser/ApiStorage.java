@@ -68,5 +68,8 @@ public class ApiStorage implements Serializable {
 		return (((31 + h1)*31)+h4);
 	}
 	
+	public String toString(){
+		return fullyQualifiedName;
+	}
 	
 }
