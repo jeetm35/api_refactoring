@@ -24,8 +24,8 @@ username=`echo $line | awk -F'/' '{print $1}'`
 reponame=`echo $line | awk -F'/' '{print $2}'`
 project="${username}_${reponame}"
 tarball="${project}.tar.gz"
-#tar zcf ${tarball} -C ${path} ${project}/ --remove-files
-tar zcf ${tarball} -C ${path} ${project}/
+tar zcf ${tarball} -C ${path} ${project}/ --remove-files
+#tar zcf ${tarball} -C ${path} ${project}/
 mv ${tarball} $path
 
 #Check build status
@@ -50,8 +50,7 @@ echo "$path/$line" >> "$path/failed.txt"
 fi
 
 else
-printf "****************************\nBuild SUCCEEDED for $line !!!\n*******************
-*********\n\n"
+printf "****************************\nBuild SUCCEEDED for $line !!!\n****************************\n\n"
 fi
 
 }
@@ -70,15 +69,16 @@ reponame=`echo $line | awk -F'/' '{print $2}'`
 echo "Name=$username; Repo=$reponame"
 project="${username}_${reponame}"
 
-if [ ! -f "$path/${project}.tar.gz" ]; then
+#if [ ! -f "$path/${project}.tar.gz" ]; then
+if [[ ( ! -d "$path/${project}" ) && ( ! -f "$path/failedProjects/${project}.tar.gz" ) && ( ! -d "$path/failedProjects/${project}" ) ]]; then
 mkdir "${path}/${project}"
 echo "Beginning to clone $line ..."
 `git clone "https://github.com/${line}.git" "$path/${project}" > /dev/null 2>&1` 
 printf "Successfully cloned $line!\n\n"
 
-buildCheck $path $project
-buildReturn=$?
-tarAndDelete $path $line $buildReturn
+#buildCheck $path $project
+#buildReturn=$?
+#tarAndDelete $path $line $buildReturn
 
 else
 printf "$line already cloned. Skipping...\n\n"
@@ -107,3 +107,5 @@ checkDownloadLocation $file $downloadPath
 #ToDo: init failed.txt
 #ToDo: usage
 #ToDo: find tar in failed or dir 
+#ToDo: repos file starts with #
+#ToDo: separate download and build script
