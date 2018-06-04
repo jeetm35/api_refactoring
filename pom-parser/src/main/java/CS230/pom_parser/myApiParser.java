@@ -24,6 +24,7 @@ import com.github.javaparser.symbolsolver.javaparsermodel.declarations.JavaParse
 import com.github.javaparser.symbolsolver.model.resolution.SymbolReference;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.CombinedTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.JarTypeSolver;
+import com.github.javaparser.symbolsolver.resolution.typesolvers.JavaParserTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
 
 
@@ -40,7 +41,20 @@ public class myApiParser {
 		
 	 	JavaParser jp=new com.github.javaparser.JavaParser(ps);
 	 	JavaParser.setStaticConfiguration(ps);
-	 	CombinedTypeSolver com = new CombinedTypeSolver(new ReflectionTypeSolver(true));
+	 	CombinedTypeSolver com = new CombinedTypeSolver(new ReflectionTypeSolver());
+	 	
+	 	Collection<File> jars = FileUtils.listFiles(dir, new String[]{"jar"}, true);
+	 	for(File f : jars){
+	 		try{
+				com.add(new JarTypeSolver(f));
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+	 	}
+	 	
+	 	com.add(new JavaParserTypeSolver(dir));
+	 	
 	 	for(String su: jarnames){
 			try{
 				com.add(new JarTypeSolver(new File("./jars/"+su)));
@@ -52,6 +66,7 @@ public class myApiParser {
 			}
 			
 		}
+	 	
 	 	ps.setSymbolResolver(new JavaSymbolSolver(com));
 	 	
 	 	
@@ -94,11 +109,14 @@ public class myApiParser {
 	public static void main(String[] args){
 	
 		System.out.println("sff");
-		File f = new File("/Users/jeetmehta/Downloads/junit3.8.1");
+		//jar to be analysed
+		File f = new File("C:/Users/kprat/Downloads/junit");
 //		for(File fi : f.listFiles()){
 //			System.out.println(fi.getName());
 //		}
-		String jarnames[]= {"junit-3.8.1.jar"};
+		//used for symbol resolver
+
+		String jarnames[]= {"slf4j-1.7.25.jar","junit-3.8.1.jar"};
 		parseApi(f,jarnames,"junit");
 		
 		System.out.println("check");
@@ -128,7 +146,7 @@ class MethodVisitor extends VoidVisitorAdapter<Void> {
          this method will be called for all methods in this 
          CompilationUnit, including inner class methods */
     	try{
-    		System.out.println("-------------------");
+//    		System.out.println("-------------------");
 	        ResolvedMethodDeclaration m = n.resolve();	    
 	        
 	        JavaParserMethodDeclaration tp = new JavaParserMethodDeclaration(n, com);
@@ -139,12 +157,12 @@ class MethodVisitor extends VoidVisitorAdapter<Void> {
 	        	parameters = new ArrayList<String>();
 		        for (int i=0;i< tp.getNumberOfParams();i++){
 		        	try{
-		        		System.out.println("Param type: "+tp.getParam(i).describeType());
+//		        		System.out.println("Param type: "+tp.getParam(i).describeType());
 			        	parameters.add(tp.getParam(i).describeType());
-			        	System.out.println("Param name:"+tp.getParam(i).getName());
+//			        	System.out.println("Param name:"+tp.getParam(i).getName());
 		        	}
 		        	catch(Exception e ){
-//		        		e.printStackTrace();
+		        		e.printStackTrace();
 		        		parameters.add("*");
 		        	}
 		        	
