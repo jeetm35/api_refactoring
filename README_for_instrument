@@ -1,0 +1,2 @@
+Use the instrument.sh file to run tests of each project after instrumentation.
+You can run tests of a customized project by writing the name of the project(s) in a file and supplying that file as an argument to this script. 
