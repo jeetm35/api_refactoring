@@ -1,12 +1,14 @@
 package CS230.pom_parser;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -14,8 +16,11 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.DirectoryFileFilter;
+import org.apache.commons.io.filefilter.RegexFileFilter;
 
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ParserConfiguration;
@@ -59,6 +64,25 @@ public class myJavaParser {
 	    return sortedByValues;
 	    }
 	
+	public static List<File> getSubdirs(File file) {
+	    List<File> subdirs = (List) Arrays.asList(file.listFiles(new FileFilter() {
+	        public boolean accept(File f) {
+	            return f.isDirectory();
+	        }
+	    }));
+	    
+	    subdirs = new ArrayList<File>(subdirs);
+
+	    List<File> deepSubdirs = new ArrayList<File>();
+	    for(File subdir : subdirs) {
+	        deepSubdirs.addAll(getSubdirs(subdir)); 
+	    }
+	    subdirs.addAll(deepSubdirs);
+	    if(file.isDirectory())
+	    	subdirs.add(file);
+	    return subdirs;
+	}
+	
 	public static void main(String[] args) throws Exception {
 		// creates an input stream for the file to be parsed
 		//FileInputStream in = new FileInputStream("C:\\Users\\kprat\\git\\pom-parser\\src\\main\\java\\CS230\\pom_parser\\sample.java");
@@ -69,7 +93,7 @@ public class myJavaParser {
 		HashSet<ApiStorage> functionsHash = (HashSet<ApiStorage>) in1.readObject();
 		HashSet<String> functionNames = (HashSet<String>) in2.readObject();
 		myJavaParser jp=new myJavaParser(functionsHash, functionNames);
-		File jarDir=new File("C:\\Users\\Sneha\\.m2\\repository");
+		File jarDir=new File("C:\\Users\\kprat\\.m2\\repository");
 		
 		HashMap<ApiStorage,IntegerCount> mainRes = new HashMap<ApiStorage, IntegerCount>();
 		for(ApiStorage func : functionsHash){
@@ -78,9 +102,9 @@ public class myJavaParser {
 		mainRes.put(ApiStorage.getInstance(), new IntegerCount(0));
 		//List<File> dire;
 		
-		File directory=new File("C:/Sneha/Studies/UCLA/Classes/Q3Spring2018/CS230/Project/github-repos/abel533_Mapper/base");
-		//File directory=new File("C:/Sneha/Studies/UCLA/Classes/Q3Spring2018/CS230/Project/api-refactoring/api_refactoring/pom-parser");
-		
+		//File directory=new File("C:/Sneha/Studies/UCLA/Classes/Q3Spring2018/CS230/Project/github-repos/abel533_Mapper/base");
+		File directory=new File("C:/Users/kprat/workspace/repos/Mapper-4.0.1/base");
+		//File directory=new  File("C:/Users/kprat/git/pom-parser");
 		for(File dir:directory.listFiles()){
 			if(dir.isDirectory()){
 				System.out.println("Dir: "+dir.getName());
@@ -89,10 +113,12 @@ public class myJavaParser {
 				for(ApiStorage func : functionsHash){
 					res.put(func, new IntegerCount(0));
 				}
-				res.put(ApiStorage.getInstance(), new IntegerCount(0));
+				res.put(ApiStorage.getInstance(), new IntegerCount(0));						
+				
 				new myJavaParser(functionsHash,functionNames).parseCode(dir,jarDir,"pomparser",res,mainRes);
 				try {
 					// set the right path
+					
 					String path = "./StaticResults";
 					ObjectOutputStream out = new ObjectOutputStream(
 							new FileOutputStream(new File(path, dir.getName() + ".txt")));
@@ -127,12 +153,14 @@ public class myJavaParser {
 		
 		//printing final poutput
 		System.out.println("Printing results-");
-		Map sortedMap = sortByValues(mainRes);
+		Map<ApiStorage,IntegerCount> sortedMap = sortByValues(mainRes);
 		Iterator iti = sortedMap.entrySet().iterator();
-		for(int i = 0 ;i < sortedMap.size(); i++){
+		for(int i = sortedMap.size()-1 ;i >=0; i--){
 			if(iti.hasNext()){
 				Map.Entry me = (Map.Entry)iti.next();
-				 System.out.println(me.getKey()+"----"+me.getValue());
+				IntegerCount c=(IntegerCount) me.getValue();
+				if(c.count>0)
+					System.out.println(me.getKey()+"----"+me.getValue());
 				
 			}
 			else{
@@ -176,9 +204,25 @@ public class myJavaParser {
 
 		JavaParser jp = new com.github.javaparser.JavaParser(ps);
 		JavaParser.setStaticConfiguration(ps);
-		CombinedTypeSolver com = new CombinedTypeSolver(new ReflectionTypeSolver(true));
+		CombinedTypeSolver com = new CombinedTypeSolver(new ReflectionTypeSolver(false));
 		//com.add(new JavaParserTypeSolver(new File("src/main/java/CS230/pom_parser")));
 		com.add(new JavaParserTypeSolver(dir));
+		
+//		Collection files = FileUtils.listFiles(
+//				  dir, 
+//				  new RegexFileFilter(".*(src).*"), 
+//				  DirectoryFileFilter.DIRECTORY
+//				);
+		List<File> l = getSubdirs(dir);
+		for(File f:l){
+			if(f.isDirectory() && (f.toString().endsWith("\\src\\test")||f.toString().endsWith("\\src\\main"))){
+				for(File temp:f.listFiles()){
+					if(temp.isDirectory())
+						com.add(new JavaParserTypeSolver(temp));
+				}
+				//com.add(new JavaParserTypeSolver(f));
+			}
+		}
 		String jarExt[]={"jar"};
 		Collection<File> jars = FileUtils.listFiles(jarDir, jarExt, true);
 		for(File file:jars){
@@ -208,8 +252,8 @@ public class myJavaParser {
 		
 		//
 		//Parsing all java files 
-		Collection<File> files = FileUtils.listFiles(dir, s, true);
-		for (File file : files) {
+		Collection<File> dirs = FileUtils.listFiles(dir, s, true);
+		for (File file : dirs) {
 			System.out.println(file.getName());
 			// parseJavaFile(file, functions,fullQualifiedHash, jp, com);
 			try {
@@ -293,9 +337,10 @@ public class myJavaParser {
 				ApiStorage as = new ApiStorage(qName, params);
 				if(apiFunctionNames.contains(qName)){
 					if(apiData.contains(as)){
-						System.out.println("xxxxxxxxxxxxxxxxxxxxxx");
-						System.out.println("Qualified name:" + p.getCorrespondingDeclaration().getQualifiedName());
-						
+//						System.out.println("xxxxxxxxxxxxxxxxxxxxxx");
+//						System.out.println("Qualified name:" + p.getCorrespondingDeclaration().getQualifiedName());
+						//res.
+						//res.keySet().iterator().next().paramters
 						res.get(as).increment();
 						res.get(ApiStorage.getInstance()).increment();
 						mainRes.get(as).increment();

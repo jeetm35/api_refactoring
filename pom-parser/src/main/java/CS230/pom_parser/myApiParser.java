@@ -111,7 +111,7 @@ public class myApiParser {
 		System.out.println("sff");
 		//jar to be analysed
 		
-		File f = new File("C:/Sneha/Studies/UCLA/Classes/Q3Spring2018/CS230/Project/junit4-r4.12");
+		File f = new File("C:/Users/kprat/Downloads/junit4-r4.12");
 
 //		for(File fi : f.listFiles()){
 //			System.out.println(fi.getName());
@@ -122,7 +122,7 @@ public class myApiParser {
 		parseApi(f,jarnames,"junit");
 		
 		System.out.println("check");
-	}
+	} 
 	
 }
 
