@@ -8,9 +8,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.TreeMap;
 
 import org.apache.commons.io.FileUtils;
 
@@ -37,6 +40,22 @@ public class myJavaParser {
 		this.apiData=apiData;
 		this.apiFunctionNames=apiFunctionNames;
 	}
+	public static <K, V extends Comparable<V>> Map<K, V> sortByValues(final Map<K, V> map) {
+	    Comparator<K> valueComparator = new Comparator<K>() {
+	      public int compare(K k1, K k2) {
+	        int compare = 
+	              map.get(k1).compareTo(map.get(k2));
+	        if (compare == 0) 
+	          return 1;
+	        else 
+	          return compare*-1;
+	      }
+	    };
+	 
+	    Map<K, V> sortedByValues = new TreeMap<K, V>(valueComparator);
+	    sortedByValues.putAll(map);
+	    return sortedByValues;
+	    }
 	
 	public static void main(String[] args) throws Exception {
 		// creates an input stream for the file to be parsed
@@ -54,15 +73,18 @@ public class myJavaParser {
 		for(ApiStorage func : functionsHash){
 			mainRes.put(func, new IntegerCount(0));
 		}
-		
+		mainRes.put(ApiStorage.getInstance(), new IntegerCount(0));
 		//List<File> dire;
-		File directory=new File("C:\\Users\\kprat\\git\\pom-parser\\src\\main\\java\\Sample");
+		File directory=new File("C:\\Users\\kprat\\git\\pom-parser\\src\\main");
 		for(File dir:directory.listFiles()){
 			if(dir.isDirectory()){
+				System.out.println("Dir"+dir.getName());
 				HashMap<ApiStorage,IntegerCount> res = new HashMap<ApiStorage, IntegerCount>();
+				
 				for(ApiStorage func : functionsHash){
 					res.put(func, new IntegerCount(0));
 				}
+				res.put(ApiStorage.getInstance(), new IntegerCount(0));
 				new myJavaParser(functionsHash,functionNames).parseCode(dir,jarDir,"pomparser",res,mainRes);
 				try {
 					// set the right path
@@ -95,6 +117,22 @@ public class myJavaParser {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		
+		
+		//printing final poutput
+		System.out.println("Printing results-");
+		Map sortedMap = sortByValues(mainRes);
+		Iterator iti = sortedMap.entrySet().iterator();
+		for(int i = 0 ;i < sortedMap.size(); i++){
+			if(iti.hasNext()){
+				Map.Entry me = (Map.Entry)iti.next();
+				 System.out.println(me.getKey()+"----"+me.getValue());
+				
+			}
+			else{
+				break;
+			}
 		}
 		
 		
@@ -135,7 +173,7 @@ public class myJavaParser {
 		JavaParser.setStaticConfiguration(ps);
 		CombinedTypeSolver com = new CombinedTypeSolver(new ReflectionTypeSolver(true));
 		//com.add(new JavaParserTypeSolver(new File("src/main/java/CS230/pom_parser")));
-		com.add(new JavaParserTypeSolver(new File("src/main/java")));
+		com.add(new JavaParserTypeSolver(dir));
 		String jarExt[]={"jar"};
 		Collection<File> jars = FileUtils.listFiles(jarDir, jarExt, true);
 		for(File file:jars){
@@ -251,7 +289,9 @@ public class myJavaParser {
 						System.out.println("Qualified name:" + p.getCorrespondingDeclaration().getQualifiedName());
 						
 						res.get(as).increment();
+						res.get(ApiStorage.getInstance()).increment();
 						mainRes.get(as).increment();
+						mainRes.get(ApiStorage.getInstance()).increment();
 					}
 					
 				}
@@ -261,7 +301,8 @@ public class myJavaParser {
 				// System.out.println(p);
 				super.visit(n, arg);
 			} catch (Exception e) {
-				e.printStackTrace();
+				System.out.println("Error=========================="+n.getName());
+				//e.printStackTrace();
 			}
 		}
 
