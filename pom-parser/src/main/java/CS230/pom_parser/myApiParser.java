@@ -35,6 +35,7 @@ public class myApiParser {
 		
 		HashSet<ApiStorage> functions = new HashSet<ApiStorage>();
 		HashSet<String> fullQualifiedHash = new HashSet<String>();
+		HashSet<String> functionNames = new HashSet<String>();
 		String s[] = new String[1];
 		s[0] = "java";
 		ParserConfiguration ps=new ParserConfiguration();
@@ -77,7 +78,7 @@ public class myApiParser {
 		    try{
 					FileInputStream in = new FileInputStream(file);
 					CompilationUnit cu = jp.parse(in);
-					cu.accept(new MethodVisitor(functions,fullQualifiedHash,com), null);
+					cu.accept(new MethodVisitor(functions,fullQualifiedHash,com,functionNames), null);
 		    }
 		    catch(Exception e){
 		    	e.printStackTrace();
@@ -93,6 +94,11 @@ public class myApiParser {
 			out.close();
 			out = new ObjectOutputStream(new FileOutputStream(new File(path,apiName+"_fullQualifiedHash.txt")));
 			out.writeObject(fullQualifiedHash);
+			out.close();
+			out = new ObjectOutputStream(new FileOutputStream(new File(path,apiName+"_functionName.txt")));
+			out.writeObject(functionNames);
+			out.close();
+			
 //			ObjectInputStream in = new ObjectInputStream(new FileInputStream(new File(path,"serliaze.txt")));
 //			XmlParser demo = (XmlParser) in.readObject();	
 		}
@@ -111,7 +117,7 @@ public class myApiParser {
 		System.out.println("sff");
 		//jar to be analysed
 		
-		File f = new File("C:/Sneha/Studies/UCLA/Classes/Q3Spring2018/CS230/Project/junit4-r4.12");
+		File f = new File("C:/Users/kprat/Downloads/junit4-r4.12");
 
 //		for(File fi : f.listFiles()){
 //			System.out.println(fi.getName());
@@ -122,7 +128,7 @@ public class myApiParser {
 		parseApi(f,jarnames,"junit");
 		
 		System.out.println("check");
-	}
+	} 
 	
 }
 
@@ -134,11 +140,13 @@ class MethodVisitor extends VoidVisitorAdapter<Void> {
     HashSet<ApiStorage> functions;
 	HashSet<String> fullQualifiedHash;
 	CombinedTypeSolver com;
+	HashSet<String> functionNames;
 	
-	public MethodVisitor(HashSet<ApiStorage> functions,HashSet<String> fullQualifiedHash,CombinedTypeSolver com  ) {
+	public MethodVisitor(HashSet<ApiStorage> functions,HashSet<String> fullQualifiedHash,CombinedTypeSolver com, HashSet<String> functionNames  ) {
 		this.functions = functions;
 		this.fullQualifiedHash = fullQualifiedHash;
 		this.com = com;
+		this.functionNames = functionNames;
 		
 	}
 	
@@ -169,6 +177,7 @@ class MethodVisitor extends VoidVisitorAdapter<Void> {
 		        	}
 		        	
 		        }
+		        functionNames.add(m.getName());
 		        functions.add(new ApiStorage(m.getQualifiedName(), parameters));
 		        fullQualifiedHash.add(m.getQualifiedName());
 	        }
