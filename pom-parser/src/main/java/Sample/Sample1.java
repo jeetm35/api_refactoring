@@ -1,4 +1,4 @@
-package Sample.InnerSample;
+package Sample;
 
 public class Sample1 {
 

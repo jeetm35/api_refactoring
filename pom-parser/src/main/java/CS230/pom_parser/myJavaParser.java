@@ -31,6 +31,8 @@ import com.github.javaparser.symbolsolver.resolution.typesolvers.JarTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.JavaParserTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
 
+import Sample.Sample1;
+import junit.framework.Assert;
 public class myJavaParser {
 	
 	public HashSet<ApiStorage> apiData;
@@ -67,7 +69,7 @@ public class myJavaParser {
 		HashSet<ApiStorage> functionsHash = (HashSet<ApiStorage>) in1.readObject();
 		HashSet<String> functionNames = (HashSet<String>) in2.readObject();
 		myJavaParser jp=new myJavaParser(functionsHash, functionNames);
-		File jarDir=new File("C:\\Users\\kprat\\.m2\\repository");
+		File jarDir=new File("C:\\Users\\Sneha\\.m2\\repository");
 		
 		HashMap<ApiStorage,IntegerCount> mainRes = new HashMap<ApiStorage, IntegerCount>();
 		for(ApiStorage func : functionsHash){
@@ -75,10 +77,13 @@ public class myJavaParser {
 		}
 		mainRes.put(ApiStorage.getInstance(), new IntegerCount(0));
 		//List<File> dire;
-		File directory=new File("C:\\Users\\kprat\\git\\pom-parser\\src\\main");
+		
+		File directory=new File("C:/Sneha/Studies/UCLA/Classes/Q3Spring2018/CS230/Project/github-repos/abel533_Mapper/base");
+		//File directory=new File("C:/Sneha/Studies/UCLA/Classes/Q3Spring2018/CS230/Project/api-refactoring/api_refactoring/pom-parser");
+		
 		for(File dir:directory.listFiles()){
 			if(dir.isDirectory()){
-				System.out.println("Dir"+dir.getName());
+				System.out.println("Dir: "+dir.getName());
 				HashMap<ApiStorage,IntegerCount> res = new HashMap<ApiStorage, IntegerCount>();
 				
 				for(ApiStorage func : functionsHash){
@@ -160,7 +165,7 @@ public class myJavaParser {
 	}
 
 	public void parseCode(File dir, File jarDir, String repo, HashMap<ApiStorage, IntegerCount> res, HashMap<ApiStorage,IntegerCount> mainRes) {
-		
+		System.out.println("parseCode dir: "+dir);
 		HashSet<ApiStorage> functions = new HashSet<ApiStorage>();
 		HashSet<String> fullQualifiedHash = new HashSet<String>();
 		String s[] = new String[1];
@@ -178,6 +183,7 @@ public class myJavaParser {
 		Collection<File> jars = FileUtils.listFiles(jarDir, jarExt, true);
 		for(File file:jars){
 			try {
+				//System.out.println(file.getAbsolutePath());
 				com.add(new JarTypeSolver(file));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -254,6 +260,8 @@ public class myJavaParser {
 			 * will be called for all methods in this CompilationUnit, including
 			 * inner class methods
 			 */
+
+			
 			try {
 				// System.out.println(n.getName());
 				// System.out.println(n);
