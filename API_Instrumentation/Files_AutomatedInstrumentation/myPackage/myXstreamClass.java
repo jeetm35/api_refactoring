@@ -41,10 +41,12 @@ public class myXstreamClass {
 
     
     public static void printFile(String xml, Method m ) {
-        String root = "/Users/shreya/eclipse/Workspace/InstrumentationHelper/XmlDump";
+        String root = "/mnt/c/Sneha/Studies/UCLA/Classes/Q3Spring2018/CS230/Project/api-refactoring/api_refactoring/InstrumentationResults/XmlDump";
         String className = m.getDeclaringClass().getCanonicalName();
         String methodName = m.getName();
         String fileName=  root+ "/"+className+"."+methodName+"_";
+        /*System.out.println("----------------Root: "+root);
+        System.out.println("----------------Printing to file: "+fileName);*/
         for(Object i: m.getParameters()) {
             String name = i.toString();
             name=name.replaceAll(" ", ".");
@@ -52,12 +54,17 @@ public class myXstreamClass {
         }
         
         fileName+=m.getReturnType().toString();
+        fileName=fileName.replaceAll("\\?", "");
+        fileName=fileName.replaceAll("<", "");
+        fileName=fileName.replaceAll(">", "");
+        fileName=fileName.replaceAll("\\(", ".");
+        fileName=fileName.replaceAll("\\)", ".");
 //        System.out.println("Filename = "+fileName);
         
         File file = new File(fileName);
         FileWriter fw = null ;
         try {
-            fw = new FileWriter(file.getAbsoluteFile(),true); 
+            fw = new FileWriter(file,true); 
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write(xml);
             bw.close();
@@ -71,4 +78,5 @@ public class myXstreamClass {
     }
     
 }
+
 
