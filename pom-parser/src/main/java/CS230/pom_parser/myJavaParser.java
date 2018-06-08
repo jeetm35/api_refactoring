@@ -42,10 +42,12 @@ public class myJavaParser {
 	
 	public HashSet<ApiStorage> apiData;
 	public HashSet<String> apiFunctionNames;
+	public HashSet<String> justNames;
 	
-	public myJavaParser(HashSet<ApiStorage> apiData,HashSet<String> apiFunctionNames) {
+	public myJavaParser(HashSet<ApiStorage> apiData,HashSet<String> apiFunctionNames,HashSet<String> justNames) {
 		this.apiData=apiData;
 		this.apiFunctionNames=apiFunctionNames;
+		this.justNames=justNames;
 	}
 	public static <K, V extends Comparable<V>> Map<K, V> sortByValues(final Map<K, V> map) {
 	    Comparator<K> valueComparator = new Comparator<K>() {
@@ -90,10 +92,13 @@ public class myJavaParser {
 		// FileInputStream("main\\java\\CS230\\pom_parser\\sample.java");
 		ObjectInputStream in1 = new ObjectInputStream(new FileInputStream(new File("./results/junit_functionsHash.txt")));
 		ObjectInputStream in2= new ObjectInputStream(new FileInputStream(new File("./results/junit_fullQualifiedHash.txt")));
+		ObjectInputStream in3= new ObjectInputStream(new FileInputStream(new File("./results/junit_functionName.txt")));
 		HashSet<ApiStorage> functionsHash = (HashSet<ApiStorage>) in1.readObject();
 		HashSet<String> functionNames = (HashSet<String>) in2.readObject();
-		myJavaParser jp=new myJavaParser(functionsHash, functionNames);
-		File jarDir=new File("C:\\Users\\kprat\\.m2\\repository");
+		HashSet<String> fName=(HashSet<String>) in3.readObject();
+		
+		myJavaParser jp=new myJavaParser(functionsHash, functionNames,fName);
+		File jarDir=new File("C:/Users/kprat/workspace/M2_sneha");
 		
 		HashMap<ApiStorage,IntegerCount> mainRes = new HashMap<ApiStorage, IntegerCount>();
 		for(ApiStorage func : functionsHash){
@@ -103,11 +108,12 @@ public class myJavaParser {
 		//List<File> dire;
 		
 		//File directory=new File("C:/Sneha/Studies/UCLA/Classes/Q3Spring2018/CS230/Project/github-repos/abel533_Mapper/base");
-		File directory=new File("C:/Users/kprat/workspace/repos/Mapper-4.0.1/base");
+		File directory=new File("C:/Users/kprat/workspace/repos");
 		//File directory=new  File("C:/Users/kprat/git/pom-parser");
 		for(File dir:directory.listFiles()){
 			if(dir.isDirectory()){
 				System.out.println("Dir: "+dir.getName());
+				
 				HashMap<ApiStorage,IntegerCount> res = new HashMap<ApiStorage, IntegerCount>();
 				
 				for(ApiStorage func : functionsHash){
@@ -115,7 +121,7 @@ public class myJavaParser {
 				}
 				res.put(ApiStorage.getInstance(), new IntegerCount(0));						
 				
-				new myJavaParser(functionsHash,functionNames).parseCode(dir,jarDir,"pomparser",res,mainRes);
+				new myJavaParser(functionsHash,functionNames,fName).parseCode(dir,jarDir,"pomparser",res,mainRes);
 				try {
 					// set the right path
 					
@@ -220,9 +226,10 @@ public class myJavaParser {
 					if(temp.isDirectory())
 						com.add(new JavaParserTypeSolver(temp));
 				}
-				//com.add(new JavaParserTypeSolver(f));
+				com.add(new JavaParserTypeSolver(f));
 			}
 		}
+		//com.add(new JavaParserTypeSolver("C:/Users/kprat/workspace/repos/Mapper-4.0.1/core/src/main/java/tk/mybatis/mapper"));
 		String jarExt[]={"jar"};
 		Collection<File> jars = FileUtils.listFiles(jarDir, jarExt, true);
 		for(File file:jars){
@@ -254,15 +261,19 @@ public class myJavaParser {
 		//Parsing all java files 
 		Collection<File> dirs = FileUtils.listFiles(dir, s, true);
 		for (File file : dirs) {
-			System.out.println(file.getName());
-			// parseJavaFile(file, functions,fullQualifiedHash, jp, com);
-			try {
-				FileInputStream in = new FileInputStream(file);
-				CompilationUnit cu = jp.parse(in);
-				cu.accept(new MethodCallVisitor(functions, fullQualifiedHash, com,res,mainRes), null);
-			} catch (Exception e) {
-				e.printStackTrace();
+			
+			if(!file.getAbsolutePath().contains("\\target\\")){
+				System.out.println(file.getAbsolutePath());
+				// parseJavaFile(file, functions,fullQualifiedHash, jp, com);
+				try {
+					FileInputStream in = new FileInputStream(file);
+					CompilationUnit cu = jp.parse(in);
+					cu.accept(new MethodCallVisitor(functions, fullQualifiedHash, com,res,mainRes), null);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
+			
 
 		}
 
@@ -315,45 +326,58 @@ public class myJavaParser {
 				// File("C:/Users/kprat/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar")));
 				// com.add(new JarTypeSolver(new
 				// File("C:\\Users\\kprat\\.m2\\repository\\com\\google\\guava\\guava\\23.4-jre\\guava-23.4-jre.jar")));
-
-				JavaParserFacade a = JavaParserFacade.get(com);
-				//n.resolveInvokedMethod()
-				//a.solve(n.getName())
-				SymbolReference<ResolvedMethodDeclaration> p = a.solve(n);
-				p.getCorrespondingDeclaration();
-				// JavaParserMethodDeclaration tp =new
-				// JavaParserMethodDeclaration(, com);
-				// p.getClass()
-				String qName= p.getCorrespondingDeclaration().getQualifiedName();
-				ArrayList<String> params=new ArrayList<String>();
-				p.getCorrespondingDeclaration().getQualifiedSignature();
-				for (int i = 0; i < p.getCorrespondingDeclaration().getNumberOfParams(); i++) {
-					//System.out.println("Param type: " + p.getCorrespondingDeclaration().getParam(i).describeType());
-					params.add(p.getCorrespondingDeclaration().getParam(i).describeType());
-
-				}
-				
-				p.getCorrespondingDeclaration().getQualifiedName();
-				ApiStorage as = new ApiStorage(qName, params);
-				if(apiFunctionNames.contains(qName)){
-					if(apiData.contains(as)){
-//						System.out.println("xxxxxxxxxxxxxxxxxxxxxx");
-//						System.out.println("Qualified name:" + p.getCorrespondingDeclaration().getQualifiedName());
-						//res.
-						//res.keySet().iterator().next().paramters
-						res.get(as).increment();
-						res.get(ApiStorage.getInstance()).increment();
-						mainRes.get(as).increment();
-						mainRes.get(ApiStorage.getInstance()).increment();
+				if(justNames.contains(n.getName().asString())){
+					
+					JavaParserFacade a = JavaParserFacade.get(com);
+					
+					//n.resolveInvokedMethod()
+					//a.solve(n.getName())
+					SymbolReference<ResolvedMethodDeclaration> p = a.solve(n);
+					p.getCorrespondingDeclaration();
+					// JavaParserMethodDeclaration tp =new
+					// JavaParserMethodDeclaration(, com);
+								// p.getClass()
+					
+					
+					String qName= p.getCorrespondingDeclaration().getQualifiedName();
+					ArrayList<String> params=new ArrayList<String>();
+					p.getCorrespondingDeclaration().getQualifiedSignature();
+					for (int i = 0; i < p.getCorrespondingDeclaration().getNumberOfParams(); i++) {
+						//System.out.println("Param type: " + p.getCorrespondingDeclaration().getParam(i).describeType());
+						try{
+						params.add(p.getCorrespondingDeclaration().getParam(i).describeType());
+						}catch(Exception e){
+							params.add("*");
+						}
 					}
 					
+					p.getCorrespondingDeclaration().getQualifiedName();
+					ApiStorage as = new ApiStorage(qName, params);
+					if(apiFunctionNames.contains(qName)){
+//						System.out.println("xxxxxxxxxxxxxxxxxxxxxx");
+//						System.out.println("Qualified name:" + p.getCorrespondingDeclaration().getQualifiedName());
+						
+						if(apiData.contains(as)){
+							System.out.println("xxxxxxxxxxxxxxxxxxxxxx");
+							System.out.println("Qualified name:" + p.getCorrespondingDeclaration().getQualifiedName());
+							//res.
+							//res.keySet().iterator().next().paramters
+							res.get(as).increment();
+							res.get(ApiStorage.getInstance()).increment();
+							mainRes.get(as).increment();
+							mainRes.get(ApiStorage.getInstance()).increment();
+						}
+						
+					}
 				}
+				
 				//functions.add();
 		        //fullQualifiedHash.add(qName);
 				// p.getCorrespondingDeclaration().getParam(0).describeType();
 				// System.out.println(p);
 				super.visit(n, arg);
 			} catch (Exception e) {
+				
 				System.out.println("Error=========================="+n.getName());
 				//e.printStackTrace();
 			}

@@ -2,12 +2,15 @@ package CS230.pom_parser;
 
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 
@@ -30,6 +33,25 @@ import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeS
 
 
 public class myApiParser {
+	
+	public static List<File> getSubdirs(File file) {
+	    List<File> subdirs = (List) Arrays.asList(file.listFiles(new FileFilter() {
+	        public boolean accept(File f) {
+	            return f.isDirectory();
+	        }
+	    }));
+	    
+	    subdirs = new ArrayList<File>(subdirs);
+
+	    List<File> deepSubdirs = new ArrayList<File>();
+	    for(File subdir : subdirs) {
+	        deepSubdirs.addAll(getSubdirs(subdir)); 
+	    }
+	    subdirs.addAll(deepSubdirs);
+//	    if(file.isDirectory())
+//	    	subdirs.add(file);
+	    return subdirs;
+	}
 
 	public static void parseApi(File dir, String jarnames[], String apiName){
 		
@@ -53,8 +75,18 @@ public class myApiParser {
 				e.printStackTrace();
 			}
 	 	}
-	 	
-	 	com.add(new JavaParserTypeSolver(dir));
+	 	List<File> l = getSubdirs(dir);
+		for(File f:l){
+			if(f.isDirectory() && (f.toString().endsWith("tests\\src")||f.toString().endsWith("\\src\\main")||f.toString().endsWith("\\src\\test"))){
+				for(File temp:f.listFiles()){
+					if(temp.isDirectory())
+						com.add(new JavaParserTypeSolver(temp));
+						System.out.println(temp.getAbsolutePath());
+				}
+				com.add(new JavaParserTypeSolver(f));
+			}
+		}
+	 	//com.add(new JavaParserTypeSolver(dir));
 	 	
 	 	for(String su: jarnames){
 			try{
@@ -117,15 +149,15 @@ public class myApiParser {
 		System.out.println("sff");
 		//jar to be analysed
 		
-		File f = new File("C:/Users/kprat/Downloads/junit4-r4.12");
+		File f = new File("C:/Users/kprat/Downloads/commons-io-2.4-src/commons-io-2.4-src");
 
 //		for(File fi : f.listFiles()){
 //			System.out.println(fi.getName());
 //		}
 		//used for symbol resolver
 
-		String jarnames[]= {"junit-4.12.jar"};
-		parseApi(f,jarnames,"junit");
+		String jarnames[]= {"commons-io-2.4.jar"};
+		parseApi(f,jarnames,"commons_io");
 		
 		System.out.println("check");
 	} 
