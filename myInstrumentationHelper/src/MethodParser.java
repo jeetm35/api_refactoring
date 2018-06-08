@@ -76,9 +76,8 @@ public class MethodParser {
 
 		    	int modifiers = node.getModifiers();
 		    	int lineNumber = cu.getLineNumber(node.getName().getStartPosition());
-		    	
 		    	try {
-		    	if (Modifier.isPublic(modifiers)) {
+		    	if (Modifier.isPublic(modifiers) && !Modifier.isAbstract(modifiers)) {
 		    		IMethodBinding im =  node.resolveBinding();
 			    	String fullClassName=im.getDeclaringClass().getQualifiedName();
 			    	String methodName = node.getName().toString();
@@ -145,13 +144,13 @@ public class MethodParser {
 	}
 	
 	public static void parseFilesInDir() throws IOException {
-		File dirs = new File("C:\\Sneha\\Studies\\UCLA\\Classes\\Q3Spring2018\\CS230\\Project\\junit4-r4.12\\junit4-r4.12");
+		File dirs = new File("C:\\Sneha\\Studies\\UCLA\\Classes\\Q3Spring2018\\CS230\\Project\\commons-io-2.4-src\\commons-io-2.4-src");
 		//File dirs = new File("C:\\Sneha\\Studies\\UCLA\\Classes\\Q3Spring2018\\CS230\\Project\\api-refactoring\\api_refactoring\\Sample");
 		String s[] = new String[1];
 		s[0] = "java";
 		File[] myDir = (dirs.listFiles());
 		
-		File parsedFile = new File("parsedData.txt");
+		File parsedFile = new File("parsedCommonsIO.txt");
 		FileWriter fw = new FileWriter(parsedFile.getAbsoluteFile());
         BufferedWriter bw = new BufferedWriter(fw);
         
