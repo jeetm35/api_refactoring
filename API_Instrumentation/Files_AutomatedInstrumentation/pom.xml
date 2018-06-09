@@ -117,8 +117,8 @@
 	    <groupId>com.thoughtworks.xstream</groupId>
 	    <artifactId>xstream</artifactId>
  				<version>1.4.10</version>
- 				<scope>system</scope>
-		   <systemPath>/Users/shreya/Desktop/UCLA/CS230/api_refactoring/junit4-r4.12/src/resources/xstream-1.4.10.jar</systemPath>
+ 				<!--<scope>system</scope>
+		   <systemPath>/Users/shreya/Desktop/UCLA/CS230/api_refactoring/junit4-r4.12/src/resources/xstream-1.4.10.jar</systemPath>-->
 	</dependency>
 	<dependency>
     <groupId>xmlpull</groupId>
@@ -350,8 +350,8 @@
 	    				<groupId>com.thoughtworks.xstream</groupId>
 	    				<artifactId>xstream</artifactId>
 	    				<version>1.4.10</version>
-	      				<scope>system</scope>
-   					   <systemPath>/Users/shreya/Desktop/UCLA/CS230/api_refactoring/junit4-r4.12/src/resources/xstream-1.4.10.jar</systemPath>
+	      				<!--<scope>system</scope>
+   					   <systemPath>/Users/shreya/Desktop/UCLA/CS230/api_refactoring/junit4-r4.12/src/resources/xstream-1.4.10.jar</systemPath>-->
 	</dependency>
                     
                 </dependencies>
@@ -568,8 +568,8 @@
 							    <groupId>com.thoughtworks.xstream</groupId>
 							    <artifactId>xstream</artifactId>
 							    <version>1.4.10</version>
-							      <scope>system</scope>
-    							<systemPath>/Users/shreya/Desktop/UCLA/CS230/api_refactoring/junit4-r4.12/src/resources/xstream-1.4.10.jar</systemPath>
+							      <!--<scope>system</scope>
+    							<systemPath>/Users/shreya/Desktop/UCLA/CS230/api_refactoring/junit4-r4.12/src/resources/xstream-1.4.10.jar</systemPath>-->
 							</dependency>
                             
                         </dependencies>
