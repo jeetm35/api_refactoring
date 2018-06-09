@@ -149,15 +149,15 @@ public class myApiParser {
 		System.out.println("sff");
 		//jar to be analysed
 		
-		File f = new File("C:/Users/kprat/Downloads/commons-io-2.4-src/commons-io-2.4-src");
+		File f = new File("C:/Users/kprat/Downloads/httpcomponents-client-4.5.3-src");
 
 //		for(File fi : f.listFiles()){
 //			System.out.println(fi.getName());
 //		}
 		//used for symbol resolver
 
-		String jarnames[]= {"commons-io-2.4.jar"};
-		parseApi(f,jarnames,"commons_io");
+		String jarnames[]= {"httpclient-4.5.3.jar"};
+		parseApi(f,jarnames,"httpclient");
 		
 		System.out.println("check");
 	} 

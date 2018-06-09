@@ -255,7 +255,7 @@ public class XmlParser implements Serializable {
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String path = "C:\\Sneha\\Studies\\UCLA\\Classes\\Q3Spring2018\\CS230\\Project\\github-repos";
+		String path = "C:\\Users\\kprat\\workspace\\github-repos";
 //		File f = new File(path);
 //		Collection<File> files = FileUtils.listFilesAndDirs(f, DirectoryFileFilter.INSTANCE, DirectoryFileFilter.INSTANCE);
 //		for(File a : files){
@@ -264,9 +264,9 @@ public class XmlParser implements Serializable {
 		
 		
 		XmlParser  parser = new XmlParser();
-		parser.parseDirectory(path);
-		parser.showPackages();
-		parser.showVersion();
+//		parser.parseDirectory(path);
+//		parser.showPackages();
+//		parser.showVersion();
 //		parser.showTopK(3);	 
 		try{
 			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(new File(path,"serliaze.txt")));
@@ -277,7 +277,7 @@ public class XmlParser implements Serializable {
 		catch(Exception e ){
 			System.out.println(e);
 		}
-//		parser.findPackageMove(path, "junit/junit", path+"_api", "4.12", true);
+		parser.findPackageMove(path, "junit/junit", path+"_api", "4.12", true);
 		System.out.println(parser.reposScanned);
 //		System.out.println(parser.repoDependencyCount);
 		parser.showtopversion(parser.showTopK(20));
