@@ -1,0 +1,11 @@
+org.slf4j.helpers.FormattingTuple.getMessage_classjava.lang.String.xml,414
+org.slf4j.helpers.FormattingTuple.getThrowable_classjava.lang.Throwable.xml,414
+org.slf4j.helpers.NOPLoggerFactory.getLogger_java.lang.String.arg0_interfaceorg.slf4j.Logger.xml,2
+org.slf4j.helpers.SubstituteLoggerFactory.clear_void.xml,48
+org.slf4j.helpers.SubstituteLoggerFactory.getEventQueue_classjava.util.concurrent.LinkedBlockingQueue.xml,48
+org.slf4j.helpers.SubstituteLoggerFactory.getLoggers_interfacejava.util.List.xml,48
+org.slf4j.helpers.SubstituteLoggerFactory.postInitialization_void.xml,48
+org.slf4j.helpers.Util.report_java.lang.String.arg0_void.xml,3
+org.slf4j.helpers.Util.safeGetBooleanSystemProperty_java.lang.String.arg0_boolean.xml,49
+org.slf4j.helpers.Util.safeGetSystemProperty_java.lang.String.arg0_classjava.lang.String.xml,98
+org.slf4j.MarkerFactory.getMarker_java.lang.String.arg0_interfaceorg.slf4j.Marker.xml,29

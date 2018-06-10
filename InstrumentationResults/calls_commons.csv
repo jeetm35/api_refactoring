@@ -1,0 +1,10 @@
+org.apache.commons.io.Charsets.toCharset_class.java.lang.String_classjava.nio.charset.Charset,5
+org.apache.commons.io.Charsets.toCharset_class.java.nio.charset.Charset_classjava.nio.charset.Charset,24
+org.apache.commons.io.input.BoundedInputStream.read_class.[B_int,3189
+org.apache.commons.io.input.BoundedInputStream.read_class.[B_int_int_int,3213
+org.apache.commons.io.input.CountingInputStream.skip_long_long,11
+org.apache.commons.io.input.ProxyInputStream.read_class.[B_int_int_int,3161
+org.apache.commons.io.input.ProxyInputStream.skip_long_long,11
+org.apache.commons.io.output.ByteArrayOutputStream.write_class.[B_int_int_void,2
+org.apache.commons.io.output.ByteArrayOutputStream.write_int_void,3228
+org.apache.commons.io.output.NullOutputStream.write_class.[B_int_int_void,11131
