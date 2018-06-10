@@ -1,0 +1,8 @@
+org.slf4j.helpers.FormattingTuple.getMessage_class java.lang.String.xml,v0,<functionCall></functionCall>,99.5192307692
+org.slf4j.helpers.SubstituteLoggerFactory.getEventQueue_class java.util.concurrent.LinkedBlockingQueue.xml,v0,<functionCall></functionCall>,96.0
+org.slf4j.helpers.SubstituteLoggerFactory.getLoggers_interface java.util.List.xml,v0,<functionCall></functionCall>,96.0
+org.slf4j.helpers.Util.safeGetBooleanSystemProperty_java.lang.String.arg0_boolean.xml,v0,<functionCall><string>slf4j.detectLoggerNameMismatch</string></functionCall>,96.0784313725
+org.slf4j.helpers.SubstituteLoggerFactory.clear_void.xml,v0,<functionCall></functionCall>,96.0
+org.slf4j.helpers.FormattingTuple.getThrowable_class java.lang.Throwable.xml,v0,<functionCall></functionCall>,99.5192307692
+org.slf4j.MarkerFactory.getMarker_java.lang.String.arg0_interface org.slf4j.Marker.xml,v0,<functionCall><string>EVENT</string></functionCall>,93.5483870968
+org.slf4j.helpers.SubstituteLoggerFactory.postInitialization_void.xml,v0,<functionCall></functionCall>,96.0
