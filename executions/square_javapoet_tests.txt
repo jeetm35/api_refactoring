@@ -1,0 +1,17 @@
+square_javapoet=Tests run: 22, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.154 sec - in com.squareup.javapoet.AnnotatedTypeNameTest
+square_javapoet=Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 12.862 sec - in com.squareup.javapoet.AnnotationSpecTest
+square_javapoet=Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 14.353 sec - in com.squareup.javapoet.ClassNameTest
+square_javapoet=Tests run: 35, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.174 sec - in com.squareup.javapoet.CodeBlockTest
+square_javapoet=Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.532 sec - in com.squareup.javapoet.FieldSpecTest
+square_javapoet=Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.356 sec - in com.squareup.javapoet.FileReadingTest
+square_javapoet=Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.214 sec - in com.squareup.javapoet.FileWritingTest
+square_javapoet=Tests run: 30, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 4.203 sec - in com.squareup.javapoet.JavaFileTest
+square_javapoet=Tests run: 16, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.55 sec - in com.squareup.javapoet.LineWrapperTest
+square_javapoet=square_javapoet=Tests run: 15, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 14.837 sec - in com.squareup.javapoet.MethodSpecTest
+square_javapoet=Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.799 sec - in com.squareup.javapoet.NameAllocatorTest
+square_javapoet=Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.543 sec - in com.squareup.javapoet.ParameterSpecTest
+square_javapoet=Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.262 sec - in com.squareup.javapoet.TypeNameTest
+square_javapoet=Tests run: 20, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.956 sec - in com.squareup.javapoet.TypesEclipseTest
+square_javapoet=Tests run: 108, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 101.239 sec - in com.squareup.javapoet.TypeSpecTest
+square_javapoet=Tests run: 20, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 19.56 sec - in com.squareup.javapoet.TypesTest
+square_javapoet=Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.448 sec - in com.squareup.javapoet.UtilTest

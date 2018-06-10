@@ -1,0 +1,17 @@
+google_google-java-format=Tests run: 38, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 21.745 sec - in com.google.googlejavaformat.java.ArrayDimensionTest
+google_google-java-format=Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.023 sec - in com.google.googlejavaformat.java.CommandLineFlagsTest
+google_google-java-format=Tests run: 17, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.064 sec - in com.google.googlejavaformat.java.CommandLineOptionsParserTest
+google_google-java-format=Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.449 sec - in com.google.googlejavaformat.java.DiagnosticTest
+google_google-java-format=Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.834 sec - in com.google.googlejavaformat.java.filer.FormattingFilerTest
+google_google-java-format=Tests run: 636, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 491.882 sec - in com.google.googlejavaformat.java.FormatterIntegrationTest
+google_google-java-format=Tests run: 29, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 27.872 sec - in com.google.googlejavaformat.java.FormatterTest
+google_google-java-format=Tests run: 26, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 33.936 sec - in com.google.googlejavaformat.java.ImportOrdererTest
+google_google-java-format=Tests run: 60, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 71.62 sec - in com.google.googlejavaformat.java.JavadocFormattingTest
+google_google-java-format=Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.577 sec - in com.google.googlejavaformat.java.LineRangesToCharRangesTest
+google_google-java-format=Tests run: 18, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 36.819 sec - in com.google.googlejavaformat.java.MainTest
+google_google-java-format=Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.296 sec - in com.google.googlejavaformat.java.ModifierOrdererTest
+google_google-java-format=Tests run: 177, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 241.059 sec - in com.google.googlejavaformat.java.PartialFormattingTest
+google_google-java-format=Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 24.504 sec - in com.google.googlejavaformat.java.RemoveUnusedImportsTest
+google_google-java-format=Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.313 sec - in com.google.googlejavaformat.java.SnippetFormatterTest
+google_google-java-format=Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.061 sec - in com.google.googlejavaformat.java.TypeNameClassifierTest
+google_google-java-format=Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.623 sec - in com.google.googlejavaformat.NewlinesTest

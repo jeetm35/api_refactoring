@@ -1,0 +1,7 @@
+vertx-examples-master=Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.815 sec
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.039 sec
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.188 sec
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.026 sec
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.035 sec
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.013 sec
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.711 sec - in hello.SampleVerticleTest

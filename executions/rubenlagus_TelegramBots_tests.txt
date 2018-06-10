@@ -1,0 +1,13 @@
+rubenlagus_TelegramBots=Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.726 sec - in org.telegram.telegrambots.api.methods.send.SendMessageTest
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.014 sec - in org.telegram.telegrambots.test.apimethods.TestAnswerInlineQuery
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.787 sec - in org.telegram.telegrambots.test.apimethods.TestGetUpdates
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.015 sec - in org.telegram.telegrambots.test.apimethods.TestSetGameScore
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.25 sec - in org.telegram.telegrambots.test.TestDeserialization
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.298 sec - in org.telegram.telegrambots.test.TestTelegramApi
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 18.689 sec - in org.telegram.telegrambots.test.TelegramLongPollingBotTest
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.912 sec - in org.telegram.telegrambots.test.TestDefaultBotSession
+Tests run: 26, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 12.598 sec - in org.telegram.telegrambots.test.TestRestApi
+Tests run: 32, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 23.303 sec - in org.telegram.abilitybots.api.bot.AbilityBotTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.676 sec - in org.telegram.abilitybots.api.db.MapDBContextTest
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec - in org.telegram.abilitybots.api.objects.AbilityTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec - in org.telegram.abilitybots.api.sender.SilentSenderTest

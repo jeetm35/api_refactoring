@@ -1,0 +1,5 @@
+TakahikoKawasaki_nv-websocket-client=[INFO] Tests run: 26, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.485 s - in com.neovisionaries.ws.client.MiscTest
+TakahikoKawasaki_nv-websocket-client=[INFO] Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.473 s - in com.neovisionaries.ws.client.PerMessageDeflateExtensionTest
+TakahikoKawasaki_nv-websocket-client=[INFO] Tests run: 18, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.863 s - in com.neovisionaries.ws.client.TokenTest
+TakahikoKawasaki_nv-websocket-client=[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.17 s - in com.neovisionaries.ws.client.WebSocketExtensionTest
+TakahikoKawasaki_nv-websocket-client=[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.848 s - in com.neovisionaries.ws.client.WebSocketFrameTest

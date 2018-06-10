@@ -1,0 +1,10 @@
+johncarl81_parceler=Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.379 sec - in org.parceler.IdentityCollectionTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.593 sec - in org.parceler.ParcelableFactoryTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.781 sec - in org.parceler.ParcelConverterTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.653 sec - in org.parceler.ParcelWrapperTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 129.742 sec - in org.parceler.internal.ASTTypeHierarchyIteratorTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.128 sec - in org.parceler.internal.GeneratorsTest
+Tests run: 68, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 233.962 sec - in org.parceler.internal.ParcelableAnalysisTest
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 70.667 sec - in org.parceler.internal.ParcelableGeneratorTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.905 sec - in org.parceler.internal.ParcelableIntegrationTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.087 sec - in org.parceler.internal.ParcelTransactionWorkerTest

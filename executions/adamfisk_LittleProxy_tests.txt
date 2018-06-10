@@ -1,0 +1,43 @@
+adamfisk_LittleProxy=
+adamfisk_LittleProxy=
+adamfisk_LittleProxy=Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 25.443 sec - in org.littleshoot.proxy.BadClientAuthenticationTCPChainedProxyTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 20.245 sec - in org.littleshoot.proxy.BadServerAuthenticationTCPChainedProxyTest
+Tests run: 6, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 31.193 sec <<< FAILURE! - in org.littleshoot.proxy.ChainedProxyWithFallbackTest
+Tests run: 6, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 37.498 sec <<< FAILURE! - in org.littleshoot.proxy.ChainedProxyWithFallbackToDirectDueToSSLTest
+Tests run: 6, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 47.452 sec <<< FAILURE! - in org.littleshoot.proxy.ChainedProxyWithFallbackToOtherChainedProxyDueToSSLTest
+Tests run: 6, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 54.144 sec <<< FAILURE! - in org.littleshoot.proxy.ClientAuthenticationNotRequiredTCPChainedProxyTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.623 sec - in org.littleshoot.proxy.ClonedProxyTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.796 sec - in org.littleshoot.proxy.DirectRequestTest
+Tests run: 6, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 52.137 sec <<< FAILURE! - in org.littleshoot.proxy.EncryptedTCPChainedProxyTest
+Tests run: 6, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 60.817 sec <<< FAILURE! - in org.littleshoot.proxy.EncryptedUDTChainedProxyTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.98 sec - in org.littleshoot.proxy.EndToEndStoppingTest
+Tests run: 9, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 49.574 sec <<< FAILURE! - in org.littleshoot.proxy.HttpFilterTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.421 sec - in org.littleshoot.proxy.HttpStreamingFilterTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 12.336 sec - in org.littleshoot.proxy.IdleTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.302 sec - in org.littleshoot.proxy.IdlingProxyTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.311 sec - in org.littleshoot.proxy.impl.ProxyToServerConnectionUtilsTest
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.008 sec - in org.littleshoot.proxy.impl.ProxyUtilsTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 27.647 sec - in org.littleshoot.proxy.KeepAliveTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 32.831 sec - in org.littleshoot.proxy.MessageTerminationTest
+Tests run: 6, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 74.406 sec <<< FAILURE! - in org.littleshoot.proxy.MitmProxyTest
+Tests run: 6, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 120.531 sec <<< FAILURE! - in org.littleshoot.proxy.MITMUsernamePasswordAuthenticatingProxyTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 87.378 sec - in org.littleshoot.proxy.MitmWithBadClientAuthenticationTCPChainedProxyTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 60.688 sec - in org.littleshoot.proxy.MitmWithBadServerAuthenticationTCPChainedProxyTest
+Tests run: 6, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 79.173 sec <<< FAILURE! - in org.littleshoot.proxy.MitmWithChainedProxyTest
+Tests run: 6, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 76.726 sec <<< FAILURE! - in org.littleshoot.proxy.MitmWithClientAuthenticationNotRequiredTCPChainedProxyTest
+Tests run: 6, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 78.526 sec <<< FAILURE! - in org.littleshoot.proxy.MitmWithEncryptedTCPChainedProxyTest
+Tests run: 6, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 82.638 sec <<< FAILURE! - in org.littleshoot.proxy.MitmWithEncryptedUDTChainedProxyTest
+Tests run: 6, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 79.441 sec <<< FAILURE! - in org.littleshoot.proxy.MitmWithUnencryptedTCPChainedProxyTest
+Tests run: 6, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 79.977 sec <<< FAILURE! - in org.littleshoot.proxy.MitmWithUnencryptedUDTChainedProxyTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.641 sec - in org.littleshoot.proxy.NoChainedProxiesTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.362 sec - in org.littleshoot.proxy.ProxyHeadersTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.942 sec - in org.littleshoot.proxy.ServerGroupTest
+Tests run: 6, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 80.331 sec <<< FAILURE! - in org.littleshoot.proxy.SimpleProxyTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.189 sec - in org.littleshoot.proxy.StopProxyTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.456 sec - in org.littleshoot.proxy.test.ServerErrorTest
+Tests run: 7, Failures: 5, Errors: 0, Skipped: 0, Time elapsed: 99.473 sec <<< FAILURE! - in org.littleshoot.proxy.ThrottlingTest
+Tests run: 3, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 26.097 sec <<< FAILURE! - in org.littleshoot.proxy.TimeoutTest
+Tests run: 6, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 93.311 sec <<< FAILURE! - in org.littleshoot.proxy.UnencryptedTCPChainedProxyTest
+Tests run: 6, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 84.001 sec <<< FAILURE! - in org.littleshoot.proxy.UnencryptedUDTChainedProxyTest
+Tests run: 6, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 111.615 sec <<< FAILURE! - in org.littleshoot.proxy.UsernamePasswordAuthenticatingProxyTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0 sec - in org.littleshoot.proxy.VariableSpeedClientServerTest

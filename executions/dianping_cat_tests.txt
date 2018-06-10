@@ -1,0 +1,149 @@
+[06-10 15:03:43.813] [INFO] [DefaultClientConfigManager] Resource file(file:/mnt/c/Sneha/Studies/UCLA/Classes/Q3Spring2018/CS230/Project/github-repos/dianping_cat/cat-client/target/test-classes/META-INF/cat/client.xml) found.
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.913 sec
+Running com.dianping.cat.message.EventTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 sec
+Running com.dianping.cat.message.HeartbeatTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 sec
+Running com.dianping.cat.message.TransactionTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.032 sec
+Running com.dianping.cat.configuration.ConfigTest
+[06-10 15:03:43.043] [WARN] [cat] CAT client was disabled in domain(Group) explicitly!
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.028 sec
+Running com.dianping.cat.message.internal.MockMessageBuilderTest
+log4j:WARN No appenders could be found for logger (io.netty.util.internal.logging.InternalLoggerFactory).
+log4j:WARN Please initialize the log4j system properly.
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.387 sec
+Running com.dianping.cat.message.spi.codec.PlainTextMessageCodecTest
+Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.12 sec
+Running com.dianping.cat.servlet.CatFilterTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.123 sec
+Running com.dianping.cat.CatTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 sec
+Running com.dianping.cat.ApiTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 sec
+Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.133 sec
+Running com.dianping.cat.message.codec.WaterfallMessageCodecTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.179 sec
+Running com.dianping.cat.storage.message.LocalMessageBucketTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.38 sec
+Running com.dianping.cat.storage.message.MessageBlockTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 sec
+Running com.dianping.cat.task.TaskManagerTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.172 sec
+Running com.dianping.cat.statistic.ServerStatisticManagerTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 sec
+Running com.dianping.cat.service.ModelRequestTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.023 sec
+Running com.dianping.cat.service.ModelPeriodTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.021 sec
+Running com.dianping.cat.service.ModelResponseTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 sec
+Running com.dianping.cat.analysis.PeriodTaskTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.158 sec
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.313 sec
+Tests run: 0, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.016 sec
+Running com.dianping.cat.consumer.core.FormatTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.093 sec
+Running com.dianping.cat.consumer.core.GsonTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.492 sec
+Running com.dianping.cat.consumer.core.NumberFormatTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 sec
+Running com.dianping.cat.consumer.metric.MetricAnalyzerTest
+Running com.dianping.cat.consumer.transaction.TransactionReportTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.044 sec
+Running com.dianping.cat.consumer.transaction.TransactionReportFilterTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.261 sec
+Running com.dianping.cat.consumer.transaction.TransactionReportMergerTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.032 sec
+Running com.dianping.cat.consumer.event.EventAnalyzerTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.23 sec
+Running com.dianping.cat.consumer.event.EventReportMergerTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.052 sec
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.307 sec
+Running com.dianping.cat.consumer.heartbeat.HeartbeatReportMergerTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.064 sec
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.14 sec
+Running com.dianping.cat.consumer.state.StateReportMergerTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.085 sec
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.327 sec
+Running com.dianping.cat.report.page.event.EventReportFilterTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.078 sec
+Running com.dianping.cat.report.page.transaction.TransactionReportFilterTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.125 sec
+Running com.dianping.cat.report.page.problem.ProblemReportMergerTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.146 sec
+Running com.dianping.cat.report.page.transaction.PayloadTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.055 sec
+Running com.dianping.cat.report.page.cross.CrossReportMergerTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.112 sec
+Running com.dianping.cat.report.page.event.EventGraphDataTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.188 sec
+Running com.dianping.cat.report.page.problem.ProblemGraphDataTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.295 sec
+Running com.dianping.cat.report.page.transaction.TransactionGraphDataTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.025 sec
+Running com.dianping.cat.report.task.TaskConsumerTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.165 sec
+Running com.dianping.cat.report.task.TaskHelperTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 sec
+Running com.dianping.cat.report.task.event.HistoryEventMergerTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.028 sec
+Running com.dianping.cat.report.task.transaction.HistoryTransactionMergerTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.029 sec
+Running com.dianping.cat.report.task.problem.ProblemCreateGraphDataTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.056 sec
+Running com.dianping.cat.report.task.problem.ProblemGraphCreatorTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.023 sec
+Running com.dianping.cat.report.task.transaction.TransactionGraphCreatorTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.044 sec
+Running com.dianping.cat.report.task.event.EventGraphCreatorTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.028 sec
+Running com.dianping.cat.report.task.event.EventDailyGraphMergerTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.086 sec
+Running com.dianping.cat.report.task.transaction.TransactionDailyGraphMergerTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.242 sec
+Running com.dianping.cat.report.task.problem.ProblemDailyGraphMergerTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.064 sec
+Running com.dianping.cat.system.notify.RenderTest
+log4j:WARN No appenders could be found for logger (freemarker.cache).
+log4j:WARN Please initialize the log4j system properly.
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.203 sec
+Running com.dianping.cat.report.page.state.StateReportMergerTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.071 sec
+Running com.dianping.cat.report.task.transaction.DailyTransactionReportGraphTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.05 sec
+Running com.dianping.cat.report.task.problem.ProblemDailyGraphTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.022 sec
+Running com.dianping.cat.report.page.metric.MetricReportParseTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.068 sec
+Running com.dianping.cat.report.page.metric.MetricReportMergerTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.023 sec
+Running com.dianping.cat.report.page.dependency.DependencyReportMergerTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.076 sec
+Running com.dianping.cat.report.task.service.ServiceReportMergerTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.05 sec
+Running com.dianping.cat.report.task.storage.HistoryStorageReportMergerTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.052 sec
+Running com.dianping.cat.report.task.metric.AlertConfigTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.184 sec
+Running com.dianping.cat.report.task.heavy.HeavyReportBuilderTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.116 sec
+Running com.dianping.cat.report.alert.RuleConfigTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.012 sec
+Running com.dianping.cat.report.page.system.SystemReportConvertorTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.019 sec
+Running com.dianping.cat.report.page.database.DatabaseReportFilterTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.086 sec
+Running com.dianping.cat.report.task.heartbeat.HeartbeatDailyMergerTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.125 sec
+Running com.dianping.cat.report.page.web.WebReportConvertorTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.026 sec
+Running com.dianping.cat.report.task.system.SystemReportStatisticsTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.064 sec
+Running com.dianping.cat.report.alert.MetricIdAndRuleMappingTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 sec
+Running com.dianping.cat.report.alert.ExtractDataTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec
+Running com.dianping.cat.report.alert.JudgeTimeTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec

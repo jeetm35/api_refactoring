@@ -1,0 +1,11 @@
+sarxos_webcam-capture=[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.331 s - in com.github.sarxos.webcam.util.jh.JHBlurFilterTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 s - in com.github.sarxos.webcam.util.jh.JHFilterTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.557 s - in com.github.sarxos.webcam.util.jh.JHFlipFilterTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 s - in com.github.sarxos.webcam.util.NixVideoDevUtilsTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.36 s - in com.github.sarxos.webcam.WebcamLockTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.923 s - in com.github.sarxos.webcam.WebcamPanelTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 s - in com.github.sarxos.webcam.WebcamResolutionTest
+[INFO] Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.135 s - in com.github.sarxos.webcam.WebcamStaticsTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 s - in com.github.sarxos.webcam.WebcamTest
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.332 s - in com.github.sarxos.webcam.ds.ipcam.IpCamDeviceRegistryTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.538 s - in com.github.sarxos.webcam.ds.vlcj.VlcjDeviceTest

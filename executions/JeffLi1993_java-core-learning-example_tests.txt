@@ -1,0 +1,2 @@
+JeffLi1993_java-core-learning-example=Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.787 sec - in org.javacore.time.DurationTest
+JeffLi1993_java-core-learning-example=Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.947 sec - in org.javacore.time.TimeUtilTest

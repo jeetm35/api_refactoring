@@ -1,0 +1,16 @@
+librec-2.0.0=Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 24.401 sec - in net.librec.recommender.cf.rating.AspectModelRatingTestCase
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.949 sec - in net.librec.recommender.cf.rating.ASVDPlusPlusTestCase
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.327 sec - in net.librec.recommender.cf.rating.BiasedMFTestCase
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 22.375 sec - in net.librec.recommender.cf.rating.BPMFTestCase
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.476 sec - in net.librec.recommender.cf.rating.BPoissMFTestCase
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1,784.022 sec - in net.librec.recommender.cf.rating.FFMTestCase
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 14.488 sec - in net.librec.recommender.cf.rating.FMFTRLTestCase
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 19.363 sec - in net.librec.recommender.cf.rating.GPLSATestCase
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.446 sec - in net.librec.recommender.cf.rating.LDCCTestCase
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.152 sec - in net.librec.recommender.cf.rating.LLORMATestCase
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 21.126 sec - in net.librec.recommender.cf.rating.MFALSTestCase
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.136 sec - in net.librec.recommender.cf.rating.NMFTestCase
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.261 sec - in net.librec.recommender.cf.rating.PMFTestCase
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 35.573 sec - in net.librec.recommender.cf.rating.RBMTestCase
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.5 sec - in net.librec.recommender.cf.rating.SVDPlusPlusTestCase
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.793 sec - in net.librec.recommender.cf.rating.URPTestCase
