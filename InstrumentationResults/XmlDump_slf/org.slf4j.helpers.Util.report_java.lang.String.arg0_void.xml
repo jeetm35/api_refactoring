@@ -1,3 +1,0 @@
-<functionCall><string>Failed to load class "org.slf4j.impl.StaticLoggerBinder".</string></functionCall>
-<functionCall><string>Defaulting to no-operation (NOP) logger implementation</string></functionCall>
-<functionCall><string>See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.</string></functionCall>

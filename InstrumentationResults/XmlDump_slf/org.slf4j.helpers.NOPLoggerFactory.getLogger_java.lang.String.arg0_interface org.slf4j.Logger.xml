@@ -1,2 +1,0 @@
-<functionCall><string>org.apache.beam.sdk.util.ReleaseInfo</string></functionCall>
-<functionCall><string>org.apache.beam.runners.dataflow.DataflowRunnerInfo</string></functionCall>
