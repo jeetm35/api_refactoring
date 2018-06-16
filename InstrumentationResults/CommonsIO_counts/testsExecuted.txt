@@ -1,2 +1,0 @@
-jeesite-master=
-weixin-java-tools-master=Tests run: 19, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 47.262 sec - in TestSuite
