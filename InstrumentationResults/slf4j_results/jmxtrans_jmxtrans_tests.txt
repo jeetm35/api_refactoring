@@ -1,7 +1,0 @@
-jmxtrans_jmxtrans=[WARNING] Tests run: 3, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0.037 s - in com.googlecode.jmxtrans.classloader.ClassLoadingTests
-[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.067 s - in com.googlecode.jmxtrans.util.ManualClockTest
-[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.012 s - in com.googlecode.jmxtrans.util.NumberUtilsTest
-[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 s - in com.googlecode.jmxtrans.util.ObjectToDoubleTest
-[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.673 s - in com.googlecode.jmxtrans.util.OnlyOnceLoggerTest
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 s - in com.googlecode.jmxtrans.util.SystemClockTest
-[ERROR] Tests run: 8, Failures: 0, Errors: 8, Skipped: 0, Time elapsed: 0.258 s <<< FAILURE! - in com.googlecode.jmxtrans.util.WatchDirTest
