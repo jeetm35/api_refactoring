@@ -55,3 +55,5 @@ During the run, the XML dumps will be saved in the directory which you mentioned
 15) Run the script API_Instrumentation/XmlEdits.ipynb which adds a starting and closing xml tag to all XMLDumps. Be sure to change the path so as to where your XML Dumps are saved. Also, correctly mention the source and the destination directory.
 
 16) After this, run the xmlScripting/Result_Parser.ipynb script to obtain refactoring suggestions. The dir variable contains the destination directory (where the modified XMLDumps are located) created in step 15.
+
+P.S.: JakeWharton_picasso2-okhttp3-downloader.zip contains byte code instrumentation. The Agent class is added in the same project, which means you will have to do a mvn install first, get the jar of the project and supply the same jar as an argument '-javaagent:' before running maven tests.
