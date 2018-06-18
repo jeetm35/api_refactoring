@@ -16,7 +16,7 @@ printf "****************************\nRunning tests of $line....\n**************
 result="$(mvn test -f "${path}/${line}" | grep 'Tests run.*Time elapsed')"
 #mvn test -f "${path}/${line}" | grep "Tests run.*Time elapsed" > testsExecuted.txt
 #myuser="$(grep '^vivek' /etc/passwd)"
-echo "$line=$result" >> testsExecuted.txt
+echo "$line=$result" >> "executions/${line}_tests.txt"
 done < "${file}"
 
 else
@@ -25,7 +25,7 @@ for dir in *; do
 if [[ ( -d $dir ) && ( $dir != "failedProjects" ) ]]; then
 printf "****************************\nRunning tests of $dir....\n****************************\n\n"
 testFile="testsExecuted"
-mvn test -f "${path}/${dir}" | grep "Tests run.*Time elapsed" > "${testFile}"
+mvn test -f "${path}/${dir}" | grep "Tests run.*Time elapsed" > "executions/${line}_tests.txt"
 
 #count=$(($count + 1))
 fi
