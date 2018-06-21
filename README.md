@@ -14,6 +14,33 @@ GitHub mining
 6) Make sure you change the paths in download.sh as required. The projects are saved as "organizationName_projectName" OR "userName_projectName" in the specified path.
 7) Run build.sh to check which projects are buildable. This script also takes a file as an argument and has the capability to build only those projects mentioned in the file. If not, it will go to the default location in the script and build all projects therein.
 
+------------------------------------
+API Selection
+------------------------------------
+XmlParser inside the pom-parser can be used to get the static count of the API's and their corresponding versions. 
+Change the "path" atrribute to the location of the folder containing all the buildable repositories obtained from mining. Uncomment lines 256-270 to get static counts. The script also copies the repositories containing a package to a different folder by line 280. 
+parser.findPackageMove(path, "junit/junit", path+"_api", "4.12", true);
+This copies all repositores containing junit with version 4.12 to the folder "path + api"
+
+---------------------------------
+Static Analysis
+---------------------------------
+Parsing the API source Code to find the functions: 
+Need to run the myApiParser in the pom-parser.
+File f should contain the location of source code of API.
+Need to store the jar of API in the ../jars folder.
+String jarnames should cantain the name of the jar stored in jars folder.
+This step stores all the results in the ../results folder.
+
+Parsing the repositories for the API.
+Need to run myJavaParser in the pom-parser.
+The ObjectInstream in1, in2, in3 must contain the name of api mentioned in the API Parser. 
+(Replace the junit with the name of API)
+File jardir must contain the path of .m2 repository of the machine used to build all the projects since it will have all the jars referred ever.
+Line 129 and 150 should be edited to store the name of result file as desired in the ../staticresults folder. 
+Our code creates results in aggregation and repository wise, in case they are ever needed.
+All the results have been output on the terminal output screen.
+
 --------------------------------------------------
 Dynamic Analysis
 --------------------------------------------------
